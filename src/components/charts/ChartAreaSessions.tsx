@@ -21,7 +21,7 @@ const chartData = [
 const chartConfig = {
   sessions: {
     label: "Sessions",
-    color: "hsl(var(--chart-1))",
+    color: "var(--chart-1)",
   },
 };
 
@@ -39,9 +39,9 @@ export function ChartAreaSessions() {
         <Area
           dataKey="sessions"
           type="natural"
-          fill="hsl(var(--chart-1))"
+          fill="var(--chart-1)"
           fillOpacity={0.18}
-          stroke="hsl(var(--chart-1))"
+          stroke="var(--chart-1)"
           strokeWidth={2}
         />
       </AreaChart>

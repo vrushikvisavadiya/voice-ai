@@ -18,7 +18,7 @@ const chartData = [
 const chartConfig = {
   score: {
     label: "Score",
-    color: "hsl(var(--chart-2))",
+    color: "var(--chart-2)",
   },
 };
 
@@ -38,7 +38,7 @@ export function ChartBarScores() {
           tickMargin={8}
         />
         <ChartTooltip cursor={false} content={<ChartTooltipContent />} />
-        <Bar dataKey="score" fill="hsl(var(--chart-2))" radius={[8, 8, 0, 0]} />
+        <Bar dataKey="score" fill="var(--chart-2)" radius={[8, 8, 0, 0]} />
       </BarChart>
     </ChartContainer>
   );
