@@ -2,41 +2,28 @@ import {
   LayoutDashboard,
   Mic,
   FileText,
+  Sparkles,
   CreditCard,
   Settings,
-  Sparkles,
+  History,
 } from "lucide-react";
 
-export const sidebarItems = [
+export const sidebarGroups = [
   {
-    title: "Dashboard",
-    href: "/dashboard",
-    icon: LayoutDashboard,
+    label: "Platform",
+    items: [
+      { title: "Dashboard", href: "/dashboard", icon: LayoutDashboard },
+      { title: "New Interview", href: "/interview/new", icon: Mic },
+      { title: "Reports", href: "/reports/demo-session", icon: FileText },
+      { title: "History", href: "/history", icon: History },
+    ],
   },
   {
-    title: "New Interview",
-    href: "/interview/new",
-    icon: Mic,
-  },
-  {
-    title: "Reports",
-    href: "/reports/demo-session",
-    icon: FileText,
-  },
-  {
-    title: "Upgrade",
-    href: "/billing",
-    icon: Sparkles,
-    badge: "Pro",
-  },
-  {
-    title: "Billing",
-    href: "/billing",
-    icon: CreditCard,
-  },
-  {
-    title: "Settings",
-    href: "/settings",
-    icon: Settings,
+    label: "Workspace",
+    items: [
+      { title: "Upgrade", href: "/billing", icon: Sparkles, badge: "Pro" },
+      { title: "Billing", href: "/billing", icon: CreditCard },
+      { title: "Settings", href: "/settings", icon: Settings },
+    ],
   },
 ];

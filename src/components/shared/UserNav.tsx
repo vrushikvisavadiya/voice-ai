@@ -1,6 +1,5 @@
 "use client";
 
-import { mockUser } from "@/config/site";
 import {
   DropdownMenu,
   DropdownMenuContent,
@@ -9,41 +8,27 @@ import {
   DropdownMenuSeparator,
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
-import { Avatar, AvatarFallback } from "@/components/ui/avatar";
-import { Badge } from "@/components/ui/badge";
+import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 
 export function UserNav() {
-  const initials = mockUser.name
-    .split(" ")
-    .map((part) => part[0])
-    .join("")
-    .slice(0, 2);
-
   return (
     <DropdownMenu>
       <DropdownMenuTrigger asChild>
-        <button className="flex items-center gap-3 rounded-xl border bg-card px-2 py-2 hover:bg-accent transition-colors">
+        <button className="flex items-center gap-3 rounded-xl border bg-card px-2 py-2 transition-colors hover:bg-accent">
           <Avatar className="h-8 w-8">
-            <AvatarFallback>{initials}</AvatarFallback>
+            <AvatarImage
+              src="https://images.unsplash.com/photo-1500648767791-00dcc994a43d?auto=format&fit=crop&w=120&q=80"
+              alt="Vrushik"
+            />
+            <AvatarFallback>VV</AvatarFallback>
           </Avatar>
-          <div className="hidden text-left md:block">
-            <p className="text-sm font-medium leading-none">{mockUser.name}</p>
-            <p className="text-xs text-muted-foreground mt-1">
-              {mockUser.email}
-            </p>
-          </div>
         </button>
       </DropdownMenuTrigger>
-
-      <DropdownMenuContent align="end" className="w-64">
-        <DropdownMenuLabel className="space-y-2">
-          <div>
-            <p className="text-sm font-medium">{mockUser.name}</p>
-            <p className="text-xs text-muted-foreground">{mockUser.email}</p>
-          </div>
-          <div className="flex gap-2">
-            <Badge variant="secondary">{mockUser.role}</Badge>
-            <Badge>{mockUser.plan}</Badge>
+      <DropdownMenuContent align="end" className="w-64 rounded-2xl">
+        <DropdownMenuLabel>
+          <div className="space-y-1">
+            <p className="text-sm font-medium">Vrushik Visavadiya</p>
+            <p className="text-xs text-muted-foreground">vrushik@example.com</p>
           </div>
         </DropdownMenuLabel>
         <DropdownMenuSeparator />
