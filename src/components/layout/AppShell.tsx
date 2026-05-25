@@ -1,17 +1,19 @@
-import { AppSidebar } from "@/components/layout/AppSidebar";
+"use client";
+
 import { AppHeader } from "@/components/layout/AppHeader";
-import { SidebarProvider } from "@/components/layout/SidebarContext";
+import { AppSidebar } from "@/components/layout/AppSidebar";
 
 export function AppShell({ children }: { children: React.ReactNode }) {
   return (
-    <SidebarProvider>
-      <div className="flex min-h-screen">
-        <AppSidebar />
-        <div className="flex min-w-0 flex-1 flex-col">
-          <AppHeader />
-          <main className="flex-1 p-4 md:p-6">{children}</main>
-        </div>
+    <div className="flex h-screen bg-background text-foreground">
+      <AppSidebar />
+
+      <div className="flex min-w-0 flex-1 flex-col">
+        <AppHeader />
+        <main className="flex-1 overflow-y-auto px-4 pb-6 pt-2 md:px-6">
+          {children}
+        </main>
       </div>
-    </SidebarProvider>
+    </div>
   );
 }
