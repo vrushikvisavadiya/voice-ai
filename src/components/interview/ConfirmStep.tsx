@@ -1,4 +1,3 @@
-// src/components/interview/ConfirmStep.tsx
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
@@ -7,6 +6,7 @@ import {
   BriefcaseBusiness,
   Building2,
   ListChecks,
+  Loader2,
 } from "lucide-react";
 
 interface ConfirmStepProps {
@@ -17,6 +17,7 @@ interface ConfirmStepProps {
   questionCount: number;
   focusAreas: string[];
   onStart: () => void;
+  isStarting?: boolean;
 }
 
 export function ConfirmStep({
@@ -27,6 +28,7 @@ export function ConfirmStep({
   questionCount,
   focusAreas,
   onStart,
+  isStarting = false,
 }: ConfirmStepProps) {
   return (
     <Card className="rounded-3xl border-border shadow-none">
@@ -89,10 +91,30 @@ export function ConfirmStep({
           </div>
         </div>
 
-        <Button onClick={onStart} size="lg" className="h-12 rounded-2xl px-5">
-          Start Interview
-          <ArrowRight className="ml-2 size-4" />
+        <Button
+          onClick={onStart}
+          disabled={isStarting}
+          size="lg"
+          className="h-12 rounded-2xl px-5"
+        >
+          {isStarting ? (
+            <>
+              <Loader2 className="mr-2 size-4 animate-spin" />
+              Starting interview…
+            </>
+          ) : (
+            <>
+              Start Interview
+              <ArrowRight className="ml-2 size-4" />
+            </>
+          )}
         </Button>
+
+        {isStarting ? (
+          <p className="text-xs text-muted-foreground">
+            Generating your personalised question set…
+          </p>
+        ) : null}
       </CardContent>
     </Card>
   );
