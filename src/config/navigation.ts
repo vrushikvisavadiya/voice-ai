@@ -14,7 +14,7 @@ export const sidebarGroups = [
     items: [
       { title: "Dashboard", href: "/dashboard", icon: LayoutDashboard },
       { title: "New Interview", href: "/interview/new", icon: Mic },
-      { title: "Reports", href: "/reports/demo-session", icon: FileText },
+      { title: "Reports", href: "/reports", icon: FileText },
       { title: "History", href: "/history", icon: History },
     ],
   },
