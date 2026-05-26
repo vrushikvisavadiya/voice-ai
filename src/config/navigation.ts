@@ -21,7 +21,7 @@ export const sidebarGroups = [
   {
     label: "Workspace",
     items: [
-      { title: "Upgrade", href: "/billing", icon: Sparkles, badge: "Pro" },
+      { title: "Upgrade", href: "/upgrade", icon: Sparkles, badge: "Pro" },
       { title: "Billing", href: "/billing", icon: CreditCard },
       { title: "Settings", href: "/settings", icon: Settings },
     ],
