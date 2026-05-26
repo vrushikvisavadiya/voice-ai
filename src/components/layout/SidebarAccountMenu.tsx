@@ -38,7 +38,7 @@ export function SidebarAccountMenu({
 
             {!collapsed && (
               <div className="min-w-0">
-                <p className="truncate text-sm font-medium">Dreamleo</p>
+                <p className="truncate text-sm font-medium">Vrushik</p>
                 <p className="truncate text-xs text-muted-foreground">
                   Free plan
                 </p>
@@ -58,8 +58,8 @@ export function SidebarAccountMenu({
         className="w-64 rounded-2xl border border-border/60 bg-background/95 p-2 backdrop-blur-xl"
       >
         <div className="px-2 py-2">
-          <p className="text-sm font-medium">Dreamleo</p>
-          <p className="text-xs text-muted-foreground">dreamleo@example.com</p>
+          <p className="text-sm font-medium">Vrushik</p>
+          <p className="text-xs text-muted-foreground">Vrushik@example.com</p>
         </div>
 
         <div className="mt-1 space-y-1">

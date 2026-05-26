@@ -81,9 +81,9 @@ export function SettingsDialog() {
                 <div className="flex items-center gap-3">
                   <User className="h-4 w-4 text-muted-foreground" />
                   <div>
-                    <p className="text-sm font-medium">Dreamleo</p>
+                    <p className="text-sm font-medium">Vrushik</p>
                     <p className="text-xs text-muted-foreground">
-                      dreamleo@example.com
+                      Vrushik@example.com
                     </p>
                   </div>
                 </div>
