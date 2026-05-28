@@ -12,11 +12,11 @@ This file gives coding agents and contributors the working product context, layo
 
 The product helps users:
 
-- paste a job description
-- generate a role-specific mock interview
-- practice with a voice-first AI experience
-- receive structured feedback and score-based reporting
-- review history, reports, billing, and plan management inside a quiet SaaS shell
+- Paste a job description.
+- Generate a role-specific mock interview.
+- Practice with a voice-first AI experience.
+- Receive structured feedback and score-based reporting.
+- Review history, reports, billing, and plan management inside a quiet SaaS shell.
 
 ## Tech stack
 
@@ -32,13 +32,13 @@ The product helps users:
 
 The shell direction is inspired by a Claude-like interface:
 
-- quiet sidebar
-- very light transparent top bar
-- minimal chrome
-- soft borders
-- muted navigation
-- subtle active state
-- no heavy dashboard/admin feel
+- Quiet sidebar
+- Very light transparent top bar
+- Minimal chrome
+- Soft borders
+- Muted navigation
+- Subtle active state
+- No heavy dashboard or admin feel
 
 ### Visual rules
 
@@ -89,18 +89,18 @@ Current groups:
 - Expanded width: `260px`
 - Collapsed width: `76px`
 - On collapsed state:
-  - icons remain visible
-  - labels are hidden
-  - tooltips can be added later if needed
+  - Icons remain visible.
+  - Labels are hidden.
+  - Tooltips can be added later if needed.
 - The active route should use a minimal visual treatment:
-  - subtle accent background
-  - foreground text
-  - no heavy shadows or loud borders
+  - Subtle accent background
+  - Foreground text
+  - No heavy shadows or loud borders
 
 ### Sidebar account area
 
 - Footer contains `SidebarAccountMenu`.
-- User can click the name/avatar area to open a popover.
+- Users can click the name or avatar area to open a popover.
 - Popover includes account actions such as:
   - Profile
   - Settings
@@ -193,20 +193,20 @@ That creates conflicting `/reports` routes.
 
 These should use the shell with sidebar and header visible:
 
-- dashboard pages
-- reports list and report detail pages
-- billing
-- upgrade
-- history
-- most standard product pages
+- Dashboard pages
+- Reports list and report detail pages
+- Billing
+- Upgrade
+- History
+- Most standard product pages
 
 ### Pages that should avoid the main AppShell
 
 These should use a separate layout or route-group override for focus and immersion:
 
-- onboarding
-- live interview session screens
-- any full-screen guided flow that should hide sidebar chrome
+- Onboarding
+- Live interview session screens
+- Any full-screen guided flow that should hide sidebar chrome
 
 ## Feature-specific guidance
 
@@ -216,9 +216,9 @@ Reports are a core review surface for interview outcomes.
 
 Expected report experience:
 
-- reports list page with filters, sorting, search, pagination, and row actions
-- detailed single report page with summary, score trend, question breakdown, radar chart, and coaching notes
-- export affordances can be mocked first, then wired later
+- Reports list page with filters, sorting, search, pagination, and row actions
+- Detailed single report page with summary, score trend, question breakdown, radar chart, and coaching notes
+- Export affordances can be mocked first, then wired later
 
 Current report paths:
 
@@ -231,11 +231,11 @@ Upgrade is a pricing and conversion page that should still feel consistent with 
 
 Expected upgrade experience:
 
-- clear monthly/annual toggle
+- Clear monthly or annual toggle
 - Free, Pro, and Team plan comparison
 - Pro plan highlighted as the most popular option
 - FAQ below pricing cards
-- simple CTAs, quiet visuals
+- Simple CTAs and quiet visuals
 
 Current upgrade path:
 
@@ -247,26 +247,26 @@ Billing is an account-management page inside the shell.
 
 Expected billing experience:
 
-- current plan summary
-- usage details
-- payment method display
-- invoice history table
-- protected destructive action for subscription cancellation
+- Current plan summary
+- Usage details
+- Payment method display
+- Invoice history table
+- Protected destructive action for subscription cancellation
 
 ### Interview flows
 
 Interview-related UX spans three different modes:
 
-- setup: job description paste + interview configuration
-- session: immersive full-screen interview experience
-- results/reporting: post-session analysis and revisitable reports
+- Setup: job description paste plus interview configuration
+- Session: immersive full-screen interview experience
+- Results and reporting: post-session analysis and revisitable reports
 
 For interview session screens:
 
-- avoid page-level scrolling where possible
-- keep the main interview canvas fixed to the viewport
-- transcript panels may scroll independently
-- hide the main sidebar for immersion
+- Avoid page-level scrolling where possible.
+- Keep the main interview canvas fixed to the viewport.
+- Transcript panels may scroll independently.
+- Hide the main sidebar for immersion.
 
 ## Component and state conventions
 
@@ -304,9 +304,9 @@ For interview session screens:
 
 - Add tooltip support for collapsed sidebar icons.
 - Add active route highlighting using `usePathname()`.
-- Add mobile sidebar as sheet/drawer.
+- Add mobile sidebar as sheet or drawer.
 - Replace placeholder recents with real session history.
-- Connect account and billing actions to real user/session data.
+- Connect account and billing actions to real user and session data.
 - Wire report export and payment flows to real back-end services.
 - Add deeper personalization based on role, company, and interview goals.
 
@@ -327,3 +327,60 @@ When building new pages:
 3. Keep cards quiet, with thin borders and minimal shadow.
 4. Make mobile behavior graceful even if the primary layout is desktop-first.
 5. Treat results, billing, reports, and upgrade pages as product surfaces, not generic admin dashboards.
+
+## Auth pages
+
+Auth pages should be added as a separate route group so they stay outside the main app shell and can use a focused layout.
+
+Expected auth pages:
+
+- `src/app/(auth)/login/page.tsx`
+- `src/app/(auth)/signup/page.tsx`
+- `src/app/(auth)/verify-otp/page.tsx`
+- `src/app/(auth)/forgot-password/page.tsx`
+
+### Auth layout guidance
+
+- Use a dedicated `(auth)` route group.
+- Keep auth screens visually lighter than the main shell.
+- Avoid sidebar chrome on auth pages.
+- Use centered card-based layouts with calm product copy.
+- Keep the primary CTA obvious and reduce secondary actions.
+
+### Auth flow notes
+
+- Login and signup should feel simple and fast.
+- OTP verification should support a clean 6-digit input flow.
+- Password reset should be optional if the product uses email-first auth.
+- Redirect authenticated users away from auth pages.
+
+## Onboarding screen
+
+Onboarding should be a separate immersive flow after auth and before the main app shell.
+
+Expected onboarding page:
+
+- `src/app/(auth)/onboarding/page.tsx`
+
+### Onboarding layout guidance
+
+- Use a full-screen or centered step-based experience.
+- Keep it quiet and welcoming, not like a form-heavy setup wizard.
+- Ask only essential questions to personalize the interview experience.
+- Include clear progress feedback.
+- Make skip/continue actions obvious and low friction.
+
+### Suggested onboarding fields
+
+- Preferred role
+- Target company or company type
+- Years of experience
+- Interview goals
+- Preferred interview style
+
+### Onboarding behavior
+
+- Show a short welcome step first.
+- Keep each step focused on one intent.
+- Support back and next navigation.
+- Finish with a clear transition into the app shell or first interview setup.

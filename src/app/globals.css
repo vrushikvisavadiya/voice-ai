@@ -59,6 +59,7 @@
   --color-score-red: var(--score-red);
 
   --font-sans: var(--font-sans);
+  --font-display: var(--font-display);
   /* --font-mono: var(--font-geist-mono);
   --font-heading: var(--font-sans); */
 
@@ -90,8 +91,8 @@
   --muted: oklch(0.962 0.004 264);
   --muted-foreground: oklch(0.48 0.02 264);
 
-  --accent: oklch(0.955 0.02 278);
-  --accent-foreground: oklch(0.32 0.06 278);
+  --accent: oklch(0.95 0.01 250);
+  --accent-foreground: oklch(0.3 0.05 250);
 
   --destructive: oklch(0.62 0.22 25);
 
