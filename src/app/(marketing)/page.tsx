@@ -1,38 +1,27 @@
-import Link from "next/link";
-import { Button } from "@/components/ui/button";
+import { FaqSection } from "@/components/marketing/faq-section";
+import { FeatureGridSection } from "@/components/marketing/feature-grid-section";
+import { HeroSection } from "@/components/marketing/hero-section";
+import { HowItWorksSection } from "@/components/marketing/how-it-works-section";
+import { LogoStrip } from "@/components/marketing/logo-strip";
+import { MarketingFooter } from "@/components/marketing/marketing-footer";
+import { MarketingHeader } from "@/components/marketing/marketing-header";
 
-export default function HomePage() {
+export default function MarketingHomePage() {
   return (
-    <div className="px-6 py-20 md:px-10 lg:px-16">
-      <section className="mx-auto flex min-h-[80vh] max-w-7xl items-center">
-        <div className="max-w-4xl space-y-8">
-          <span className="inline-flex rounded-full border border-border bg-muted px-4 py-1.5 text-sm text-muted-foreground">
-            AI Voice Interview Practice
-          </span>
+    <div className="relative min-h-screen overflow-x-hidden bg-background">
+      <div className="absolute inset-x-0 top-0 -z-10 h-[520px] bg-[radial-gradient(circle_at_top,_rgba(122,92,255,0.18),_transparent_42%),radial-gradient(circle_at_top_right,_rgba(255,122,89,0.12),_transparent_28%)] dark:bg-[radial-gradient(circle_at_top,_rgba(140,120,255,0.2),_transparent_42%),radial-gradient(circle_at_top_right,_rgba(255,122,89,0.1),_transparent_28%)]" />
 
-          <div className="space-y-5">
-            <h1 className="text-4xl font-semibold leading-tight tracking-tight md:text-6xl">
-              Practice the exact interview for your next job
-            </h1>
+      <MarketingHeader />
 
-            <p className="max-w-2xl text-base leading-7 text-muted-foreground md:text-lg">
-              Paste a job description, answer realistic AI-led interview
-              questions by voice, and get instant coaching with a detailed
-              performance report.
-            </p>
-          </div>
+      <main className="pb-16">
+        <HeroSection />
+        <LogoStrip />
+        <HowItWorksSection />
+        <FeatureGridSection />
+        <FaqSection />
+      </main>
 
-          <div className="flex flex-col gap-3 sm:flex-row">
-            <Button asChild size="lg" className="rounded-xl">
-              <Link href="/signup">Start Free</Link>
-            </Button>
-
-            <Button asChild size="lg" variant="outline" className="rounded-xl">
-              <Link href="/dashboard">See App UI</Link>
-            </Button>
-          </div>
-        </div>
-      </section>
+      <MarketingFooter />
     </div>
   );
 }
