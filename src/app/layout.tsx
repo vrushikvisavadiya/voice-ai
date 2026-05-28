@@ -1,5 +1,5 @@
 import type { Metadata } from "next";
-import { Inter, Instrument_Serif } from "next/font/google";
+import { Inter, Outfit } from "next/font/google";
 import { ThemeProvider } from "@/components/providers/ThemeProvider";
 import { TooltipProvider } from "@/components/ui/tooltip";
 import "./globals.css";
@@ -9,9 +9,8 @@ const inter = Inter({
   variable: "--font-sans",
 });
 
-const instrumentSerif = Instrument_Serif({
+const outfit = Outfit({
   subsets: ["latin"],
-  weight: "400",
   variable: "--font-display",
 });
 
@@ -29,7 +28,7 @@ export default function RootLayout({
     <html
       lang="en"
       suppressHydrationWarning
-      className={`${inter.variable} ${instrumentSerif.variable}`}
+      className={`${inter.variable} ${outfit.variable}`}
     >
       <body className="min-h-screen bg-background font-sans text-foreground antialiased">
         <ThemeProvider>
