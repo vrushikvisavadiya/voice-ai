@@ -12,6 +12,11 @@ const nextConfig: NextConfig = {
         protocol: "https",
         hostname: "plus.unsplash.com",
       },
+      {
+        protocol: "https",
+        hostname: "pplx-res.cloudinary.com",
+        pathname: "/image/upload/**",
+      },
     ],
   },
 };

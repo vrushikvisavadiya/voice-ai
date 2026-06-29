@@ -1,5 +1,6 @@
 import { FaqSection } from "@/components/marketing/home/faq-section";
 import { FeatureGridSection } from "@/components/marketing/home/feature-grid-section";
+import { FeatureShowcaseSection } from "@/components/marketing/home/feature-showcase-section";
 import { HeroSection } from "@/components/marketing/home/hero-section";
 import { HowItWorksSection } from "@/components/marketing/home/how-it-works-section";
 import { LogoStrip } from "@/components/marketing/home/logo-strip";
@@ -11,6 +12,7 @@ export default function MarketingHomePage() {
     <div className="relative overflow-x-hidden">
       {/* 1. Hero */}
       <HeroSection />
+      <FeatureShowcaseSection /> 
 
       {/* 2. Social proof logo strip */}
       <LogoStrip />
