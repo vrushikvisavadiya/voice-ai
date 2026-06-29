@@ -2,36 +2,27 @@
 
 import Link from "next/link";
 import { motion, type Variants } from "framer-motion";
-import { ArrowLeft, ArrowRight, Quote } from "lucide-react";
+import { ArrowRight, Quote, Sparkles, Star } from "lucide-react";
 
 import { Button } from "@/components/ui/button";
+import { cn } from "@/lib/utils";
 
 const smoothEase = [0.16, 1, 0.3, 1] as const;
 
 const containerVariants: Variants = {
   hidden: {},
   show: {
-    transition: {
-      staggerChildren: 0.12,
-      delayChildren: 0.08,
-    },
+    transition: { staggerChildren: 0.1, delayChildren: 0.05 },
   },
 };
 
 const itemVariants: Variants = {
-  hidden: {
-    opacity: 0,
-    y: 24,
-    filter: "blur(8px)",
-  },
+  hidden: { opacity: 0, y: 24, filter: "blur(8px)" },
   show: {
     opacity: 1,
     y: 0,
     filter: "blur(0px)",
-    transition: {
-      duration: 0.7,
-      ease: smoothEase,
-    },
+    transition: { duration: 0.7, ease: smoothEase },
   },
 };
 
@@ -40,25 +31,55 @@ const testimonials = [
     name: "David Tui",
     role: "Marketing Manager, HubSync",
     quote:
-      "Crack My Interview refined my responses and boosted my interview confidence.",
+      "Crack My Interview refined my responses and boosted my interview confidence dramatically. I got the offer within 3 weeks.",
     avatar: "DT",
-    featured: true,
+    stars: 5,
+    company: "HubSpot",
   },
   {
     name: "Sarah Mitchell",
     role: "Software Engineer, Anydesk",
     quote:
-      "This platform trained me to deliver structured, confident interview answers.",
+      "This platform trained me to deliver structured, confident interview answers. The AI feedback was eerily accurate.",
     avatar: "SM",
-    featured: false,
+    stars: 5,
+    company: "Stripe",
   },
   {
     name: "Priya Sharma",
     role: "Product Designer, Designdot",
     quote:
-      "With Crack My Interview, I learned confidence and more professional storytelling.",
+      "I practiced 12 sessions before my Google interview. The STAR coaching was a game-changer for my behavioral rounds.",
     avatar: "PS",
-    featured: false,
+    stars: 5,
+    company: "Google",
+  },
+  {
+    name: "Marcus Lee",
+    role: "Product Manager, BuildCore",
+    quote:
+      "The session transcripts let me review exactly what went wrong and correct it. My scores jumped 40 points in a week.",
+    avatar: "ML",
+    stars: 5,
+    company: "Amazon",
+  },
+  {
+    name: "Aisha Patel",
+    role: "Data Analyst, Quantify",
+    quote:
+      "The filler word tracking was eye-opening. I had no idea how many times I said 'umm' until the AI showed me.",
+    avatar: "AP",
+    stars: 5,
+    company: "Netflix",
+  },
+  {
+    name: "Jordan Clarke",
+    role: "Engineering Manager, Loopify",
+    quote:
+      "My team used this for mock hiring rounds on both sides. It gave us a shared, objective view of where people struggled.",
+    avatar: "JC",
+    stars: 5,
+    company: "Meta",
   },
 ];
 
@@ -67,51 +88,44 @@ function TestimonialCard({
   role,
   quote,
   avatar,
-  featured,
-}: {
-  name: string;
-  role: string;
-  quote: string;
-  avatar: string;
-  featured?: boolean;
-}) {
+  stars,
+  company,
+}: (typeof testimonials)[0]) {
   return (
     <motion.div
       variants={itemVariants}
-      whileHover={{
-        y: -6,
-        transition: {
-          duration: 0.25,
-          ease: smoothEase,
-        },
-      }}
-      className={[
-        "relative rounded-[1.8rem] border p-6 pt-10 shadow-[0_20px_60px_-30px_rgba(0,0,0,0.12)] transition-colors",
-        featured
-          ? "border-emerald-100 bg-[linear-gradient(180deg,#eefaf4_0%,#f7fcf8_100%)]"
-          : "border-border/60 bg-background",
-      ].join(" ")}
+      whileHover={{ y: -6, transition: { duration: 0.22, ease: smoothEase } }}
+      className="flex break-inside-avoid flex-col rounded-[1.75rem] border border-border/60 bg-card p-6 shadow-[0_18px_50px_-28px_rgba(0,0,0,0.10)]"
     >
-      <div className="absolute left-6 top-6 text-emerald-400">
-        <Quote className="size-8 fill-current stroke-0" />
+      {/* Quote icon */}
+      <Quote className="size-7 text-primary/30" />
+
+      {/* Stars */}
+      <div className="mt-3 flex items-center gap-0.5">
+        {Array.from({ length: stars }).map((_, i) => (
+          <Star key={i} className="size-3.5 fill-amber-400 text-amber-400" />
+        ))}
       </div>
 
-      <div className="absolute left-1/2 top-0 flex -translate-x-1/2 -translate-y-1/2 items-center justify-center">
-        <div className="flex size-14 items-center justify-center rounded-full border-4 border-background bg-gradient-to-br from-violet-500 via-fuchsia-500 to-orange-400 text-sm font-semibold text-white shadow-[0_12px_30px_-12px_rgba(124,58,237,0.45)]">
-          {avatar}
-        </div>
-      </div>
-
-      <p className="mt-8 min-h-[132px] font-display text-[1.95rem] leading-[1.15] tracking-[-0.03em] text-foreground md:text-[2.1rem]">
-        {quote}
+      {/* Quote */}
+      <p className="mt-4 flex-1 text-sm leading-7 text-foreground/80">
+        &ldquo;{quote}&rdquo;
       </p>
 
-      <div className="mt-8 flex items-start gap-3">
-        <div className="mt-1 h-11 w-1 rounded-full bg-emerald-400" />
-        <div>
-          <p className="text-lg font-semibold text-foreground">{name}</p>
-          <p className="text-sm text-muted-foreground">{role}</p>
+      {/* Author */}
+      <div className="mt-5 flex items-center gap-3 border-t border-border/40 pt-5">
+        <div className="flex size-10 shrink-0 items-center justify-center rounded-full bg-primary text-xs font-semibold text-primary-foreground">
+          {avatar}
         </div>
+        <div className="min-w-0">
+          <p className="truncate text-sm font-semibold text-foreground">
+            {name}
+          </p>
+          <p className="truncate text-xs text-muted-foreground">{role}</p>
+        </div>
+        <span className="ml-auto shrink-0 rounded-full border border-border/50 bg-muted/50 px-2.5 py-1 text-xs font-medium text-muted-foreground">
+          ✓ {company}
+        </span>
       </div>
     </motion.div>
   );
@@ -119,48 +133,36 @@ function TestimonialCard({
 
 function TestimonialsSection() {
   return (
-    <section className="px-4 py-12 md:px-6 md:py-20">
+    <section className="px-4 py-16 md:px-6 md:py-24">
       <div className="mx-auto max-w-7xl">
         <motion.div
           variants={containerVariants}
           initial="hidden"
           whileInView="show"
-          viewport={{ once: true, amount: 0.2 }}
-          className="mx-auto max-w-6xl"
+          viewport={{ once: true, amount: 0.1 }}
         >
+          {/* Header */}
           <motion.div variants={itemVariants} className="text-center">
-            <p className="text-sm font-medium uppercase tracking-[0.18em] text-emerald-600 dark:text-emerald-400">
-              Testimonial
+            <p className="text-sm font-medium uppercase tracking-[0.18em] text-primary">
+              Testimonials
             </p>
-
-            <h2 className="mt-4 font-display text-4xl font-semibold tracking-[-0.04em] text-foreground sm:text-5xl md:text-6xl">
-              What Our Users Say
+            <h2 className="mt-4 font-display text-4xl font-semibold leading-[1.05] tracking-[-0.04em] text-foreground sm:text-5xl">
+              Validated by high-growth teams.
             </h2>
-
-            <p className="mx-auto mt-5 max-w-3xl text-base leading-7 text-muted-foreground md:text-lg">
-              Real stories from professionals who improved their clarity,
-              confidence, and interview performance with Crack My Interview.
+            <p className="mx-auto mt-5 max-w-2xl text-base leading-7 text-muted-foreground md:text-lg">
+              Real results from professionals who improved their clarity,
+              confidence, and interview performance.
             </p>
           </motion.div>
 
-          <div className="mt-14 grid gap-6 lg:grid-cols-3">
-            {testimonials.map((item) => (
-              <TestimonialCard key={item.name} {...item} />
+          {/* Masonry-style grid */}
+          <div className="mt-12 columns-1 gap-5 sm:columns-2 lg:columns-3">
+            {testimonials.map((t) => (
+              <div key={t.name} className="mb-5">
+                <TestimonialCard {...t} />
+              </div>
             ))}
           </div>
-
-          <motion.div
-            variants={itemVariants}
-            className="mt-10 flex items-center justify-center gap-4"
-          >
-            <button className="flex size-12 items-center justify-center rounded-full border border-border/60 bg-background text-muted-foreground shadow-sm transition hover:-translate-y-0.5 hover:text-foreground">
-              <ArrowLeft className="size-5" />
-            </button>
-
-            <button className="flex size-12 items-center justify-center rounded-full border border-emerald-200 bg-emerald-50 text-emerald-600 shadow-sm transition hover:-translate-y-0.5 dark:border-emerald-500/20 dark:bg-emerald-500/10 dark:text-emerald-400">
-              <ArrowRight className="size-5" />
-            </button>
-          </motion.div>
         </motion.div>
       </div>
     </section>
@@ -169,37 +171,61 @@ function TestimonialsSection() {
 
 function CtaBannerSection() {
   return (
-    <section className="px-4 pb-12 md:px-6 md:pb-24">
+    <section className="px-4 pb-16 md:px-6 md:pb-28">
       <div className="mx-auto max-w-7xl">
         <motion.div
-          initial={{ opacity: 0, y: 24, filter: "blur(8px)" }}
+          initial={{ opacity: 0, y: 28, filter: "blur(8px)" }}
           whileInView={{ opacity: 1, y: 0, filter: "blur(0px)" }}
           viewport={{ once: true, amount: 0.25 }}
-          transition={{ duration: 0.75, ease: smoothEase }}
-          className="relative overflow-hidden rounded-[2.2rem] border border-white/10 bg-[#05060a] px-6 py-14 text-center shadow-[0_30px_100px_-36px_rgba(0,0,0,0.5)] md:px-10 md:py-20"
+          transition={{ duration: 0.8, ease: smoothEase }}
+          className="relative overflow-hidden rounded-[2.2rem] border border-white/10 bg-[#07070e] px-6 py-16 text-center shadow-[0_40px_120px_-36px_rgba(0,0,0,0.55)] md:px-10 md:py-24"
         >
-          <div className="pointer-events-none absolute inset-0 bg-[radial-gradient(circle_at_center,_rgba(34,197,94,0.22),_transparent_22%),radial-gradient(circle_at_50%_85%,_rgba(124,92,255,0.16),_transparent_28%)]" />
-          <div className="pointer-events-none absolute inset-x-16 bottom-0 h-32 bg-[radial-gradient(circle_at_center,_rgba(34,197,94,0.45),_transparent_58%)] blur-3xl" />
+          {/* Glows */}
+          <div className="pointer-events-none absolute inset-0 bg-[radial-gradient(ellipse_at_50%_0%,rgba(84,58,237,0.28),transparent_55%),radial-gradient(ellipse_at_80%_100%,rgba(130,80,255,0.18),transparent_50%)]" />
+          <div className="pointer-events-none absolute inset-x-0 top-0 h-px bg-gradient-to-r from-transparent via-primary/60 to-transparent" />
 
-          <div className="relative mx-auto max-w-4xl">
-            <h2 className="font-display text-4xl font-semibold tracking-[-0.04em] text-white sm:text-5xl md:text-6xl">
-              Unlock Your Dream Role — One Session Away
+          <div className="relative mx-auto max-w-3xl">
+            <div className="mb-5 inline-flex items-center gap-2 rounded-full border border-white/15 bg-white/5 px-4 py-1.5 text-xs font-medium text-white/70">
+              <Sparkles className="size-3.5 text-primary" />
+              Start scaling your interview prep with AI
+            </div>
+
+            <h2 className="font-display text-4xl font-semibold leading-[1.05] tracking-[-0.04em] text-white sm:text-5xl md:text-6xl">
+              Unlock Your Dream Role —
+              <br />
+              One Session Away.
             </h2>
 
-            <p className="mx-auto mt-5 max-w-3xl text-base leading-7 text-white/70 md:text-lg">
-              Join Crack My Interview and step into your next opportunity with
-              sharper answers, calmer delivery, and better interview practice.
+            <p className="mx-auto mt-5 max-w-xl text-base leading-7 text-white/60 md:text-lg">
+              Join 20,000+ candidates who practice smarter with Voice AI
+              coaching and walk into interviews with sharper answers and calmer
+              delivery.
             </p>
 
-            <div className="mt-10">
+            <div className="mt-10 flex flex-wrap items-center justify-center gap-4">
               <Button
                 asChild
                 size="lg"
-                className="h-12 rounded-xl bg-gradient-to-r from-emerald-400 to-lime-400 px-8 text-sm font-semibold text-emerald-950 shadow-[0_16px_40px_-16px_rgba(74,222,128,0.55)] hover:opacity-95"
+                className="h-12 rounded-full bg-primary px-8 text-sm font-semibold text-primary-foreground shadow-[0_16px_40px_-16px_rgba(84,58,237,0.6)] hover:bg-primary/90"
               >
-                <Link href="/signup">Get Started</Link>
+                <Link href="/signup">
+                  Get started free
+                  <ArrowRight className="ml-2 size-4" />
+                </Link>
+              </Button>
+              <Button
+                asChild
+                size="lg"
+                variant="ghost"
+                className="h-12 rounded-full border border-white/15 px-8 text-sm text-white/80 hover:bg-white/5 hover:text-white"
+              >
+                <Link href="/pricing">View pricing</Link>
               </Button>
             </div>
+
+            <p className="mt-5 text-xs text-white/40">
+              No credit card required · 7-day free trial · Cancel anytime
+            </p>
           </div>
         </motion.div>
       </div>

@@ -60,8 +60,6 @@
 
   --font-sans: var(--font-sans);
   --font-display: var(--font-display);
-  /* --font-mono: var(--font-geist-mono);
-  --font-heading: var(--font-sans); */
 
   --radius-sm: calc(var(--radius) * 0.6);
   --radius-md: calc(var(--radius) * 0.8);
@@ -72,8 +70,36 @@
   --radius-4xl: calc(var(--radius) * 2.6);
 }
 
+/* =================================================================
+   DESIGN TOKENS — Change these two variables to retheme the whole app
+   --primary     : oklch() value for the brand color
+   --radius      : Base corner radius for all components
+   ================================================================= */
+
 :root {
-  --background: oklch(0.985 0.004 255);
+  /* ── PRIMARY BRAND COLOR ─────────────────────────────────────────
+     Change this one value to shift the primary color across the app.
+     Current: Indigo/Violet hue (oklch L C H format)
+     Examples:
+       Blue:   oklch(0.55 0.18 260)
+       Purple: oklch(0.55 0.20 290)
+       Teal:   oklch(0.55 0.14 185)
+       Rose:   oklch(0.55 0.18 355)
+  ───────────────────────────────────────────────────────────────── */
+  --primary: oklch(0.55 0.20 290);
+
+  /* ── BORDER RADIUS ───────────────────────────────────────────────
+     Change this to update the rounding of every component.
+     0.5rem = sharp   |  0.9rem = default  |  1.4rem = very rounded
+  ───────────────────────────────────────────────────────────────── */
+  --radius: 0.9rem;
+
+  /* ── AUTO-DERIVED FROM PRIMARY ───────────────────────────────── */
+  --primary-foreground: oklch(0.985 0.003 264);
+  --ring: var(--primary);
+
+  /* ── BACKGROUNDS & SURFACES ──────────────────────────────────── */
+  --background: #f4f4f4;
   --foreground: oklch(0.21 0.015 255);
 
   --card: oklch(0.995 0.002 255);
@@ -82,58 +108,71 @@
   --popover: oklch(0.995 0.002 255);
   --popover-foreground: oklch(0.21 0.015 255);
 
-  --primary: oklch(0.58 0.14 266);
-  --primary-foreground: oklch(0.985 0.003 255);
-
   --secondary: oklch(0.968 0.006 255);
   --secondary-foreground: oklch(0.28 0.02 255);
 
   --muted: oklch(0.962 0.005 255);
   --muted-foreground: oklch(0.49 0.018 255);
 
-  --accent: oklch(0.95 0.016 262);
-  --accent-foreground: oklch(0.32 0.04 262);
+  --accent: oklch(0.94 0.018 264);
+  --accent-foreground: oklch(0.30 0.06 264);
 
   --destructive: oklch(0.62 0.19 22);
 
   --border: oklch(0.9 0.007 255);
   --input: oklch(0.91 0.007 255);
-  --ring: oklch(0.58 0.14 266);
-  --radius: 0.9rem;
+
+  /* ── SIDEBAR ─────────────────────────────────────────────────── */
   --sidebar: oklch(0.978 0.004 255);
   --sidebar-foreground: oklch(0.21 0.015 255);
-  --sidebar-primary: oklch(0.58 0.14 266);
-  --sidebar-primary-foreground: oklch(0.985 0.003 255);
+  --sidebar-primary: var(--primary);
+  --sidebar-primary-foreground: var(--primary-foreground);
   --sidebar-accent: oklch(0.955 0.01 255);
   --sidebar-accent-foreground: oklch(0.28 0.02 255);
   --sidebar-border: oklch(0.9 0.007 255);
-  --sidebar-ring: oklch(0.58 0.14 266);
+  --sidebar-ring: var(--primary);
 
+  /* ── STATUS COLORS ───────────────────────────────────────────── */
   --success: oklch(0.7 0.12 150);
   --success-foreground: oklch(0.22 0.03 150);
   --warning: oklch(0.82 0.12 85);
   --warning-foreground: oklch(0.3 0.05 80);
 
-  --interview-surface: oklch(0.972 0.01 262);
-  --interview-surface-2: oklch(0.958 0.014 262);
+  /* ── INTERVIEW SURFACES ──────────────────────────────────────── */
+  --interview-surface: oklch(0.972 0.01 264);
+  --interview-surface-2: oklch(0.958 0.014 264);
 
+  /* ── SCORE COLORS ────────────────────────────────────────────── */
   --score-green: oklch(0.7 0.12 150);
   --score-amber: oklch(0.82 0.12 85);
   --score-red: oklch(0.64 0.18 22);
+
+  /* ── CHARTS ──────────────────────────────────────────────────── */
+  --chart-1: oklch(0.54 0.22 264);
+  --chart-2: oklch(0.64 0.18 220);
+  --chart-3: oklch(0.70 0.12 150);
+  --chart-4: oklch(0.78 0.14 65);
+  --chart-5: oklch(0.68 0.18 350);
 }
 
 .dark {
+  /* ── PRIMARY BRAND COLOR (dark) ──────────────────────────────────
+     Lighter version of the primary so it contrasts on dark bg.
+     Adjust together with the :root primary above.
+  ───────────────────────────────────────────────────────────────── */
+  --primary: oklch(0.70 0.18 264);
+  --primary-foreground: oklch(0.18 0.012 264);
+  --ring: var(--primary);
+
+  /* ── BACKGROUNDS & SURFACES ──────────────────────────────────── */
   --background: oklch(0.16 0.01 255);
   --foreground: oklch(0.955 0.004 255);
 
-  --card: oklch(0.2 0.012 255);
+  --card: oklch(0.20 0.012 255);
   --card-foreground: oklch(0.955 0.004 255);
 
-  --popover: oklch(0.2 0.012 255);
+  --popover: oklch(0.20 0.012 255);
   --popover-foreground: oklch(0.955 0.004 255);
-
-  --primary: oklch(0.72 0.12 268);
-  --primary-foreground: oklch(0.18 0.012 255);
 
   --secondary: oklch(0.24 0.012 255);
   --secondary-foreground: oklch(0.955 0.004 255);
@@ -141,44 +180,80 @@
   --muted: oklch(0.24 0.012 255);
   --muted-foreground: oklch(0.72 0.012 255);
 
-  --accent: oklch(0.28 0.02 266);
-  --accent-foreground: oklch(0.955 0.004 255);
+  --accent: oklch(0.28 0.022 264);
+  --accent-foreground: oklch(0.92 0.004 255);
 
   --destructive: oklch(0.68 0.16 22);
 
   --border: oklch(0.3 0.01 255 / 0.7);
   --input: oklch(0.32 0.01 255 / 0.8);
-  --ring: oklch(0.72 0.12 268);
 
+  /* ── SIDEBAR ─────────────────────────────────────────────────── */
   --sidebar: oklch(0.18 0.012 255);
   --sidebar-foreground: oklch(0.955 0.004 255);
-  --sidebar-primary: oklch(0.72 0.12 268);
-  --sidebar-primary-foreground: oklch(0.18 0.012 255);
+  --sidebar-primary: var(--primary);
+  --sidebar-primary-foreground: var(--primary-foreground);
   --sidebar-accent: oklch(0.24 0.012 255);
   --sidebar-accent-foreground: oklch(0.955 0.004 255);
   --sidebar-border: oklch(0.3 0.01 255 / 0.7);
-  --sidebar-ring: oklch(0.72 0.12 268);
+  --sidebar-ring: var(--primary);
 
+  /* ── STATUS COLORS ───────────────────────────────────────────── */
   --success: oklch(0.74 0.11 150);
   --success-foreground: oklch(0.2 0.03 150);
   --warning: oklch(0.84 0.11 85);
   --warning-foreground: oklch(0.24 0.04 80);
 
-  --interview-surface: oklch(0.19 0.015 260);
-  --interview-surface-2: oklch(0.23 0.018 262);
+  /* ── INTERVIEW SURFACES ──────────────────────────────────────── */
+  --interview-surface: oklch(0.19 0.015 264);
+  --interview-surface-2: oklch(0.23 0.018 264);
 
+  /* ── SCORE COLORS ────────────────────────────────────────────── */
   --score-green: oklch(0.74 0.11 150);
   --score-amber: oklch(0.84 0.11 85);
   --score-red: oklch(0.7 0.15 22);
+
+  /* ── CHARTS ──────────────────────────────────────────────────── */
+  --chart-1: oklch(0.70 0.18 264);
+  --chart-2: oklch(0.64 0.16 220);
+  --chart-3: oklch(0.70 0.12 150);
+  --chart-4: oklch(0.78 0.14 65);
+  --chart-5: oklch(0.68 0.18 350);
 }
 
+/* =================================================================
+   UTILITY CLASSES
+   ================================================================= */
 @layer utilities {
+  /* Brand gradient that follows the primary hue */
   .text-gradient-brand {
     background-image: linear-gradient(
       90deg,
-      oklch(0.6 0.18 300),
-      oklch(0.68 0.18 350),
-      oklch(0.78 0.16 65)
+      var(--primary),
+      oklch(from var(--primary) calc(l - 0.05) calc(c + 0.04) calc(h + 40)),
+      oklch(from var(--primary) calc(l + 0.1) calc(c - 0.06) calc(h + 90))
+    );
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent;
+  }
+
+  /* Static gradient fallback (more widely supported) */
+  .bg-gradient-primary {
+    background-image: linear-gradient(
+      135deg,
+      oklch(0.54 0.22 264),
+      oklch(0.56 0.24 290),
+      oklch(0.65 0.18 320)
+    );
+  }
+
+  .text-gradient-primary {
+    background-image: linear-gradient(
+      90deg,
+      oklch(0.54 0.22 264),
+      oklch(0.58 0.24 300),
+      oklch(0.68 0.18 340)
     );
     -webkit-background-clip: text;
     background-clip: text;
@@ -186,6 +261,9 @@
   }
 }
 
+/* =================================================================
+   BASE
+   ================================================================= */
 @layer base {
   * {
     @apply border-border outline-ring/50;
