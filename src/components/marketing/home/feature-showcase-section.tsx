@@ -102,7 +102,6 @@ export function FeatureShowcaseSection() {
     const swiper = swiperRef.current;
     if (!swiper) return;
     swiper.slideTo(index);
-    // restart autoplay from this slide
     swiper.autoplay.stop();
     swiper.autoplay.start();
   }, []);
@@ -115,8 +114,32 @@ export function FeatureShowcaseSection() {
 
   return (
     <section className="relative overflow-hidden px-4 py-24 md:px-6 md:py-32">
-      {/* Top gradient echo */}
-      <div className="pointer-events-none absolute inset-x-0 top-0 -z-10 h-40 bg-gradient-to-b from-[color-mix(in_oklch,var(--primary)_5%,transparent)] to-transparent" />
+      {/* ── Background gradient system ───────────────────────────── */}
+
+      {/* Base wash — primary tint across entire section */}
+      <div className="pointer-events-none absolute inset-0 -z-10 bg-[radial-gradient(ellipse_100%_70%_at_50%_50%,color-mix(in_oklch,var(--primary)_8%,transparent),transparent_70%)]" />
+
+      {/* Top-left orb */}
+      <div className="pointer-events-none absolute -left-32 -top-32 -z-10 size-[600px] rounded-full bg-[radial-gradient(circle,color-mix(in_oklch,var(--primary)_14%,transparent),transparent_65%)] blur-3xl" />
+
+      {/* Bottom-right orb */}
+      <div className="pointer-events-none absolute -bottom-24 -right-24 -z-10 size-[500px] rounded-full bg-[radial-gradient(circle,color-mix(in_oklch,var(--primary)_10%,transparent),transparent_65%)] blur-3xl" />
+
+      {/* Top edge fade in from previous section */}
+      <div className="pointer-events-none absolute inset-x-0 top-0 -z-10 h-32 bg-gradient-to-b from-background to-transparent" />
+
+      {/* Bottom edge fade out to next section */}
+      <div className="pointer-events-none absolute inset-x-0 bottom-0 -z-10 h-32 bg-gradient-to-t from-background to-transparent" />
+
+      {/* Subtle noise texture overlay */}
+      <div
+        className="pointer-events-none absolute inset-0 -z-10 opacity-[0.025]"
+        style={{
+          backgroundImage: `url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)'/%3E%3C/svg%3E")`,
+          backgroundRepeat: "repeat",
+          backgroundSize: "128px",
+        }}
+      />
 
       <div className="mx-auto max-w-6xl">
         {/* Label */}
@@ -127,7 +150,7 @@ export function FeatureShowcaseSection() {
           transition={{ duration: 0.6, ease: smoothEase }}
           className="mb-4 flex justify-center"
         >
-          <span className="inline-flex items-center gap-1.5 rounded-full border border-border/60 bg-muted/60 px-3 py-1 text-xs font-medium text-muted-foreground">
+          <span className="inline-flex items-center gap-1.5 rounded-full border border-primary/20 bg-primary/8 px-3 py-1 text-xs font-medium text-primary">
             Everything in one place
           </span>
         </motion.div>
@@ -153,11 +176,11 @@ export function FeatureShowcaseSection() {
           transition={{ duration: 0.6, delay: 0.16, ease: smoothEase }}
           className="mx-auto mb-12 max-w-xl text-center text-base text-muted-foreground md:text-[1.05rem] md:leading-7"
         >
-          Every tool you need — from first practice session to offer letter —
-          in one focused workspace.
+          Every tool you need — from first practice session to offer letter — in
+          one focused workspace.
         </motion.p>
 
-        {/* ── Tab strip ── equal width & height via grid ───────── */}
+        {/* Tab strip */}
         <motion.div
           initial={{ opacity: 0, y: 16 }}
           whileInView={{ opacity: 1, y: 0 }}
@@ -173,14 +196,13 @@ export function FeatureShowcaseSection() {
                 key={tab.id}
                 onClick={() => handleTabClick(index)}
                 className={cn(
-                  // equal height via aspect + flex centering
-                  "group relative flex flex-col items-center justify-center gap-2 rounded-2xl border px-2 py-4 text-xs font-medium transition-all duration-200 overflow-hidden",
+                  "group relative flex flex-col items-center justify-center gap-2 overflow-hidden rounded-2xl border px-2 py-4 text-xs font-medium transition-all duration-200",
                   isActive
-                    ? "border-primary/30 bg-primary text-primary-foreground shadow-[0_4px_20px_-6px_rgba(0,0,0,0.3)]"
-                    : "border-border/50 bg-background/80 text-muted-foreground hover:border-primary/20 hover:bg-muted hover:text-foreground",
+                    ? "border-primary/40 bg-primary text-primary-foreground shadow-[0_4px_24px_-6px_color-mix(in_oklch,var(--primary)_50%,transparent)]"
+                    : "border-primary/10 bg-background/60 text-muted-foreground backdrop-blur-sm hover:border-primary/25 hover:bg-background/90 hover:text-foreground",
                 )}
               >
-                {/* Autoplay progress bar at bottom of active tab */}
+                {/* Progress bar */}
                 {isActive && (
                   <motion.span
                     key={`progress-${activeIndex}`}
@@ -204,7 +226,7 @@ export function FeatureShowcaseSection() {
           })}
         </motion.div>
 
-        {/* ── Browser frame + Swiper ───────────────────────────── */}
+        {/* Browser frame + Swiper */}
         <motion.div
           initial={{ opacity: 0, y: 32, scale: 0.97 }}
           whileInView={{ opacity: 1, y: 0, scale: 1 }}
@@ -212,11 +234,11 @@ export function FeatureShowcaseSection() {
           transition={{ duration: 0.75, delay: 0.28, ease: smoothEase }}
           className="relative mx-auto"
         >
-          {/* Glow */}
-          <div className="pointer-events-none absolute -inset-2 rounded-[2rem] bg-gradient-to-b from-primary/15 via-primary/5 to-transparent blur-3xl" />
+          {/* Glow ring behind card */}
+          <div className="pointer-events-none absolute -inset-3 rounded-[2rem] bg-[radial-gradient(ellipse_80%_60%_at_50%_50%,color-mix(in_oklch,var(--primary)_20%,transparent),transparent)] blur-2xl" />
 
           {/* Card */}
-          <div className="relative overflow-hidden rounded-[1.5rem] border border-border/60 bg-background shadow-[0_32px_80px_-24px_rgba(0,0,0,0.22)]">
+          <div className="relative overflow-hidden rounded-[1.5rem] border border-primary/15 bg-background/95 shadow-[0_32px_80px_-24px_rgba(0,0,0,0.22)] backdrop-blur-sm">
             {/* Chrome bar */}
             <div className="flex items-center justify-between border-b border-border/40 bg-muted/40 px-5 py-3">
               <div className="flex items-center gap-3">
@@ -250,8 +272,8 @@ export function FeatureShowcaseSection() {
               fadeEffect={{ crossFade: true }}
               autoplay={{
                 delay: 3500,
-                disableOnInteraction: false,  // keeps running after tab click
-                pauseOnMouseEnter: true,      // pauses on hover
+                disableOnInteraction: false,
+                pauseOnMouseEnter: true,
               }}
               speed={700}
               loop={true}
