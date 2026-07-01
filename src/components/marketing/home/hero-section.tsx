@@ -88,23 +88,24 @@ export function HeroSection() {
         >
           <Button
             asChild
-            size="lg"
-            className="h-[50px] rounded-xl px-7 text-[15px] font-semibold shadow-[0_8px_30px_-8px_rgba(0,0,0,0.35)] transition-all duration-300 hover:scale-[1.03] hover:shadow-[0_14px_40px_-10px_rgba(0,0,0,0.40)]"
+            variant="animated"
+            size="xl"
+            className="rounded-xl shadow-[0_8px_30px_-8px_rgba(0,0,0,0.35)] transition-all duration-300 hover:scale-[1.03] hover:shadow-[0_14px_40px_-10px_rgba(0,0,0,0.40)]"
           >
-            <Link href="/signup">
+            <Link href="/signup" className="flex items-center gap-1">
               Start free trial
-              <ArrowRight className="ml-2 size-4" />
+              <ArrowRight className="size-4 transition-transform duration-300 group-hover/button:translate-x-0.5" />
             </Link>
           </Button>
 
           <Button
             asChild
-            variant="outline"
-            size="lg"
-            className="h-[50px] rounded-xl border-border/70 bg-background/80 px-7 text-[15px] font-semibold backdrop-blur-sm transition-all duration-300 hover:scale-[1.02] hover:bg-background"
+            variant="animated-muted"
+            size="xl"
+            className="rounded-xl transition-all duration-300 hover:scale-[1.02]"
           >
-            <Link href="#how-it-works">
-              <Calendar className="mr-2 size-4 text-primary" />
+            <Link href="#how-it-works" className="flex items-center gap-1">
+              <Calendar className="size-4 text-primary" />
               Book a Demo
             </Link>
           </Button>

@@ -26,22 +26,27 @@ export function DashboardHero() {
             </div>
 
             <div className="flex flex-col gap-3 sm:flex-row">
-              <Button asChild size="lg" className="rounded-xl">
-                <Link href="/interview/new">
-                  <Mic className="mr-2 h-4 w-4" />
+              <Button
+                asChild
+                variant="animated"
+                size="lg"
+                className="rounded-xl"
+              >
+                <Link href="/interview/new" className="flex items-center gap-1.5">
+                  <Mic className="size-4" />
                   Start AI Interview
-                  <ArrowRight className="ml-2 h-4 w-4" />
+                  <ArrowRight className="size-4 transition-transform duration-300 group-hover/button:translate-x-0.5" />
                 </Link>
               </Button>
 
               <Button
                 asChild
+                variant="animated-muted"
                 size="lg"
-                variant="outline"
                 className="rounded-xl"
               >
-                <Link href="/reports/demo-session">
-                  <Wand2 className="mr-2 h-4 w-4" />
+                <Link href="/reports/demo-session" className="flex items-center gap-1.5">
+                  <Wand2 className="size-4 text-primary" />
                   View AI Report
                 </Link>
               </Button>

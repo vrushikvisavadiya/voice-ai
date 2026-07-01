@@ -3,7 +3,12 @@
 import * as React from "react";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
-import { AnimatePresence, motion, useMotionValueEvent, useScroll } from "framer-motion";
+import {
+  AnimatePresence,
+  motion,
+  useMotionValueEvent,
+  useScroll,
+} from "framer-motion";
 import {
   ArrowRight,
   Menu,
@@ -42,6 +47,7 @@ function ThemeToggle() {
   const [mounted, setMounted] = React.useState(false);
 
   React.useEffect(() => {
+    // eslint-disable-next-line react-hooks/set-state-in-effect
     setMounted(true);
   }, []);
 
@@ -51,7 +57,7 @@ function ThemeToggle() {
     <button
       type="button"
       aria-label={isDark ? "Switch to light mode" : "Switch to dark mode"}
-      className="flex size-9 items-center justify-center rounded-full text-muted-foreground transition-colors hover:bg-muted hover:text-foreground"
+      className="flex size-10 items-center justify-center rounded-full border border-border/60 bg-background/70 text-muted-foreground backdrop-blur-md transition-all duration-300 hover:border-border hover:bg-background hover:text-foreground"
       onClick={() => setTheme(isDark ? "light" : "dark")}
     >
       <AnimatePresence mode="wait" initial={false}>
@@ -81,21 +87,17 @@ export function MarketingHeader() {
   const [hidden, setHidden] = React.useState(false);
   const lastScrollY = React.useRef(0);
 
-  // Track scroll direction for hide-on-scroll-down behaviour
   useMotionValueEvent(scrollY, "change", (current) => {
     const previous = lastScrollY.current;
     const diff = current - previous;
 
-    // Hide header only after scrolled past hero (>80px) on scroll down
     if (current > 80 && diff > 0) {
       setHidden(true);
     } else {
       setHidden(false);
     }
 
-    // Glass effect kicks in after 20px
-    setScrolled(current > 20);
-
+    setScrolled(current > 16);
     lastScrollY.current = current;
   });
 
@@ -103,53 +105,63 @@ export function MarketingHeader() {
     <motion.header
       initial={{ y: -100, opacity: 0 }}
       animate={{
-        y: hidden ? -100 : 0,
+        y: hidden ? -110 : 0,
         opacity: 1,
       }}
       transition={{
-        y: { duration: 0.4, ease: [0.16, 1, 0.3, 1] },
-        opacity: { duration: 0.35, ease: "easeOut" },
+        y: { duration: 0.45, ease: [0.16, 1, 0.3, 1] },
+        opacity: { duration: 0.3, ease: "easeOut" },
       }}
       className="fixed inset-x-0 top-0 z-50"
     >
-      {/* Outer container with padding */}
       <div className="px-4 pt-3 md:px-6">
         <div className="mx-auto max-w-6xl">
           <motion.div
             animate={{
+              y: scrolled ? 0 : 2,
+              scale: scrolled ? 0.985 : 1,
               backgroundColor: scrolled
-                ? "color-mix(in oklch, var(--background) 80%, transparent)"
-                : "color-mix(in oklch, var(--background) 60%, transparent)",
+                ? "color-mix(in oklch, var(--background) 84%, transparent)"
+                : "color-mix(in oklch, var(--background) 68%, transparent)",
               borderColor: scrolled
-                ? "color-mix(in oklch, var(--border) 80%, transparent)"
-                : "color-mix(in oklch, var(--border) 40%, transparent)",
+                ? "color-mix(in oklch, var(--border) 72%, transparent)"
+                : "color-mix(in oklch, var(--border) 38%, transparent)",
               boxShadow: scrolled
-                ? "0 8px 32px -8px rgba(0,0,0,0.18), 0 0 0 1px rgba(255,255,255,0.06) inset"
-                : "0 2px 12px -4px rgba(0,0,0,0.08)",
+                ? "0 18px 50px -18px rgba(0,0,0,0.18)"
+                : "0 8px 24px -16px rgba(0,0,0,0.12)",
             }}
             transition={{ duration: 0.35, ease: "easeOut" }}
-            className="relative flex h-[58px] items-center justify-between rounded-2xl border px-4 backdrop-blur-xl md:h-[60px] md:px-5"
+            className="relative flex h-[64px] items-center justify-between rounded-[22px] border px-3 backdrop-blur-xl md:px-4"
           >
-            {/* Brand */}
-            <Link href="/" className="group flex items-center gap-2.5 shrink-0">
-              <div className="flex size-8 items-center justify-center rounded-xl bg-primary shadow-[0_4px_12px_-4px_rgba(0,0,0,0.3)] transition-transform duration-300 group-hover:scale-[1.06]">
-                <Mic className="size-4 text-primary-foreground" />
-              </div>
-              <span className="text-[15px] font-semibold tracking-tight text-foreground">
-                VoiceCoach AI
-              </span>
-            </Link>
+            <div className="flex items-center gap-3">
+              <Link
+                href="/"
+                className="group flex shrink-0 items-center gap-3 rounded-2xl px-2 py-1.5"
+              >
+                <div className="flex size-9 items-center justify-center rounded-2xl bg-primary text-primary-foreground shadow-[0_10px_24px_-10px_rgba(0,0,0,0.45)] transition-transform duration-300 group-hover:scale-[1.06]">
+                  <Mic className="size-4" />
+                </div>
+                <div className="flex flex-col items-start leading-none">
+                  <span className="text-[15px] font-semibold tracking-tight text-foreground">
+                    VoiceCoach AI
+                  </span>
+                  <span className="text-[11px] text-muted-foreground">
+                    Practice with precision
+                  </span>
+                </div>
+              </Link>
+            </div>
 
-            {/* Center nav */}
-            <nav className="absolute left-1/2 hidden -translate-x-1/2 items-center gap-0.5 md:flex">
+            <nav className="absolute left-1/2 hidden -translate-x-1/2 items-center rounded-full border border-border/50 bg-background/60 p-1 backdrop-blur-md md:flex">
               {navigation.map((item) => {
                 const active = isActive(pathname, item.href);
+
                 return (
                   <Link
                     key={item.label}
                     href={item.href}
                     className={cn(
-                      "relative px-3.5 py-2 text-[13.5px] font-medium transition-colors duration-200",
+                      "relative rounded-full px-4 py-2 text-[13px] font-medium transition-colors duration-200",
                       active
                         ? "text-foreground"
                         : "text-muted-foreground hover:text-foreground",
@@ -157,12 +169,12 @@ export function MarketingHeader() {
                   >
                     {active && (
                       <motion.span
-                        layoutId="nav-active"
-                        className="absolute inset-0 rounded-lg bg-muted"
+                        layoutId="nav-active-pill"
+                        className="absolute inset-0 rounded-full bg-muted"
                         transition={{
                           type: "spring",
-                          stiffness: 400,
-                          damping: 32,
+                          stiffness: 380,
+                          damping: 30,
                         }}
                       />
                     )}
@@ -172,25 +184,32 @@ export function MarketingHeader() {
               })}
             </nav>
 
-            {/* Right actions */}
-            <div className="hidden items-center gap-1 md:flex">
+            <div className="hidden items-center gap-2 md:flex">
               <ThemeToggle />
-              <Link
-                href="/login"
-                className="px-4 py-2 text-[13.5px] font-medium text-muted-foreground transition-colors hover:text-foreground"
-              >
-                Sign in
-              </Link>
+
               <Button
                 asChild
-                className="h-9 rounded-xl px-4 text-[13.5px] font-semibold shadow-[0_4px_14px_-4px_rgba(0,0,0,0.35)]"
+                variant="ghost"
+                size="sm"
+                className="rounded-full px-4"
               >
-                <Link href="/signup">Sign Up</Link>
+                <Link href="/login">Sign in</Link>
+              </Button>
+
+              <Button
+                asChild
+                variant="animated"
+                size="lg"
+                className="rounded-full px-5"
+              >
+                <Link href="/signup" className="flex items-center gap-1">
+                  Start free
+                  <ArrowRight className="size-4 transition-transform duration-300 group-hover/button:translate-x-0.5" />
+                </Link>
               </Button>
             </div>
 
-            {/* Mobile: theme + hamburger */}
-            <div className="flex items-center gap-1 md:hidden">
+            <div className="flex items-center gap-2 md:hidden">
               <ThemeToggle />
               <MobileMenu pathname={pathname} />
             </div>
@@ -209,7 +228,7 @@ function MobileMenu({ pathname }: { pathname: string }) {
       <SheetTrigger asChild>
         <button
           type="button"
-          className="flex size-9 items-center justify-center rounded-lg text-muted-foreground transition-colors hover:bg-muted hover:text-foreground"
+          className="flex size-10 items-center justify-center rounded-full border border-border/60 bg-background/70 text-muted-foreground backdrop-blur-md transition-all duration-300 hover:border-border hover:bg-background hover:text-foreground"
           aria-label="Open menu"
         >
           <Menu className="size-5" />
@@ -218,23 +237,28 @@ function MobileMenu({ pathname }: { pathname: string }) {
 
       <SheetContent
         side="right"
-        className="w-[88%] border-l border-border/60 bg-background/95 px-0 backdrop-blur-xl sm:max-w-sm"
+        className="w-[90%] border-l border-border/60 bg-background/96 px-0 backdrop-blur-2xl sm:max-w-sm"
       >
         <div className="flex h-full flex-col">
-          {/* Sheet header */}
           <div className="flex items-center justify-between border-b border-border/50 px-5 py-4">
-            <div className="flex items-center gap-2.5">
-              <div className="flex size-8 items-center justify-center rounded-xl bg-primary">
-                <Mic className="size-4 text-primary-foreground" />
+            <div className="flex items-center gap-3">
+              <div className="flex size-9 items-center justify-center rounded-2xl bg-primary text-primary-foreground">
+                <Mic className="size-4" />
               </div>
-              <span className="text-sm font-semibold text-foreground">
-                VoiceCoach AI
-              </span>
+              <div className="flex flex-col leading-none">
+                <span className="text-sm font-semibold text-foreground">
+                  VoiceCoach AI
+                </span>
+                <span className="mt-1 text-[11px] text-muted-foreground">
+                  Practice with precision
+                </span>
+              </div>
             </div>
+
             <SheetClose asChild>
               <button
                 type="button"
-                className="flex size-9 items-center justify-center rounded-lg text-muted-foreground transition-colors hover:bg-muted hover:text-foreground"
+                className="flex size-10 items-center justify-center rounded-full border border-border/60 bg-background/70 text-muted-foreground transition-colors hover:bg-muted hover:text-foreground"
                 aria-label="Close menu"
               >
                 <X className="size-4.5" />
@@ -243,16 +267,15 @@ function MobileMenu({ pathname }: { pathname: string }) {
           </div>
 
           <div className="flex flex-1 flex-col px-5 py-5">
-            {/* Badge */}
-            <div className="mb-5 inline-flex items-center gap-2 self-start rounded-full border border-primary/20 bg-primary/8 px-3 py-1.5 text-xs font-medium text-primary">
+            <div className="mb-6 inline-flex items-center gap-2 self-start rounded-full border border-primary/20 bg-primary/8 px-3 py-1.5 text-xs font-medium text-primary">
               <Sparkles className="size-3.5" />
               AI-powered interview coach
             </div>
 
-            {/* Nav links */}
-            <div className="flex flex-col gap-1">
+            <div className="flex flex-col gap-2">
               {navigation.map((item, index) => {
                 const active = isActive(pathname, item.href);
+
                 return (
                   <motion.div
                     key={item.label}
@@ -268,10 +291,10 @@ function MobileMenu({ pathname }: { pathname: string }) {
                       <Link
                         href={item.href}
                         className={cn(
-                          "flex items-center justify-between rounded-xl px-4 py-3 text-sm font-medium transition-colors",
+                          "flex items-center justify-between rounded-2xl border px-4 py-3.5 text-sm font-medium transition-all",
                           active
-                            ? "bg-primary/8 text-foreground"
-                            : "text-muted-foreground hover:bg-muted hover:text-foreground",
+                            ? "border-primary/20 bg-primary/8 text-foreground"
+                            : "border-transparent text-muted-foreground hover:border-border/60 hover:bg-muted/60 hover:text-foreground",
                         )}
                       >
                         <span>{item.label}</span>
@@ -285,22 +308,28 @@ function MobileMenu({ pathname }: { pathname: string }) {
               })}
             </div>
 
-            {/* CTA buttons */}
-            <div className="mt-auto space-y-2.5 pt-8">
+            <div className="mt-auto space-y-3 pt-8">
               <SheetClose asChild>
                 <Button
                   asChild
                   variant="outline"
-                  className="h-11 w-full rounded-xl border-border/60 text-sm"
+                  size="xl"
+                  className="w-full rounded-2xl"
                 >
                   <Link href="/login">Sign in</Link>
                 </Button>
               </SheetClose>
+
               <SheetClose asChild>
-                <Button asChild className="h-11 w-full rounded-xl text-sm">
-                  <Link href="/signup">
+                <Button
+                  asChild
+                  variant="animated-primary"
+                  size="xl"
+                  className="w-full rounded-2xl"
+                >
+                  <Link href="/signup" className="flex items-center gap-1">
                     Start free
-                    <ArrowRight className="ml-2 size-4" />
+                    <ArrowRight className="size-4 transition-transform duration-300 group-hover/button:translate-x-0.5" />
                   </Link>
                 </Button>
               </SheetClose>
