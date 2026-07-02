@@ -115,6 +115,7 @@ function Button({
     asChild?: boolean;
   }) {
   if (asChild && React.isValidElement(children)) {
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
     const child = children as React.ReactElement<any>;
     return (
       <Slot
@@ -129,7 +130,7 @@ function Button({
           {},
           <span className="relative z-10 inline-flex items-center justify-center gap-2 w-full h-full">
             {child.props.children}
-          </span>
+          </span>,
         )}
       </Slot>
     );
