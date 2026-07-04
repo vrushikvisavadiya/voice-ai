@@ -69,7 +69,7 @@ function GlowCard({
         background: hovered
           ? `radial-gradient(300px circle at ${pos.x}px ${pos.y}px, color-mix(in oklch, var(--primary) 55%, transparent), transparent 70%)`
           : darkBg
-            ? "oklch(0.21 0.015 255)"
+            ? "oklch(0.3 0.01 255 / 0.4)"
             : "oklch(0.9 0.007 255 / 0.6)",
       }}
     >
@@ -77,7 +77,7 @@ function GlowCard({
       <div
         className={cn(
           "relative h-full w-full overflow-hidden rounded-[calc(1.75rem-1px)]",
-          darkBg ? "bg-foreground" : "bg-card",
+          darkBg ? "bg-neutral-950" : "bg-card",
         )}
       >
         {children}

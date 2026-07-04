@@ -11,7 +11,8 @@ export function hasPlan(userPlan: UserPlan, allowedPlans?: UserPlan[]) {
 }
 
 export function canAccessNavItem(user: AppUser, item: NavItem) {
-  return hasRole(user.role, item.roles) && hasPlan(user.plan, item.plans);
+  const rolesAllowed = !item.roles || item.roles.length === 0 || hasRole(user.role, item.roles);
+  return rolesAllowed && hasPlan(user.plan, item.plans);
 }
 
 export function getVisibleNavItems(user: AppUser, items: NavItem[]) {

@@ -99,7 +99,7 @@
   --ring: var(--primary);
 
   /* ── BACKGROUNDS & SURFACES ──────────────────────────────────── */
-  --background: #f4f4f4;
+  --background: #f7f7ff;
   --foreground: oklch(0.21 0.015 255);
 
   --card: oklch(0.995 0.002 255);

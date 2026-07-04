@@ -83,7 +83,7 @@ export function ScoreTrendChart({ data }: ScoreTrendChartProps) {
                   background: "var(--background)",
                   color: "var(--foreground)",
                 }}
-                formatter={(value: number) => [`${value}`, "Score"]}
+                formatter={(value: any) => [`${value}`, "Score"]}
                 labelFormatter={(label) => `Session: ${label}`}
               />
               <Line

@@ -16,8 +16,11 @@ import {
   Sparkles,
 } from "lucide-react";
 
+import { useEffect, useState } from "react";
+import { useTheme } from "next-themes";
 import { Button } from "@/components/ui/button";
 import { cn } from "@/lib/utils";
+import Aurora from "@/components/aurora/Aurora";
 
 const smoothEase = [0.16, 1, 0.3, 1] as const;
 
@@ -39,11 +42,29 @@ const itemVariants: Variants = {
 
 /* ─── Hero Section ──────────────────────────────────────────────── */
 export function HeroSection() {
+  const { resolvedTheme } = useTheme();
+  const [mounted, setMounted] = useState(false);
+
+  useEffect(() => {
+    setMounted(true);
+  }, []);
+
+  // Use Brand Harmonies: soft pale indigo/lavender/pink in light mode; vibrant blue/purple/violet in dark mode.
+  const colors = mounted && resolvedTheme === "light"
+    ? ["#c7d2fe", "#e9d5ff", "#fbcfe8"]
+    : ["#3b82f6", "#8b5cf6", "#5227FF"];
+
   return (
-    <section className="relative flex min-h-[100svh] flex-col items-center overflow-hidden px-4 pb-16 pt-28 text-center md:px-6 md:pt-36">
-      {/* Background gradient — subtle lavender like the reference image */}
-      <div className="pointer-events-none absolute inset-x-0 bottom-0 top-0 -z-10 bg-[radial-gradient(ellipse_90%_60%_at_50%_100%,color-mix(in_oklch,var(--primary)_12%,transparent),transparent_70%)]" />
-      <div className="pointer-events-none absolute inset-x-0 top-0 -z-10 h-[60%] bg-[radial-gradient(ellipse_70%_50%_at_50%_-5%,color-mix(in_oklch,var(--primary)_10%,transparent),transparent)]" />
+    <section className="relative isolate flex flex-col items-center justify-center overflow-hidden px-4 pb-20 pt-28 text-center md:px-6 md:pb-28 md:pt-36 lg:pb-36 lg:pt-44">
+      {/* Aurora background animation */}
+      <div className="pointer-events-none absolute inset-0 -z-10 overflow-hidden opacity-55 dark:opacity-40 transition-opacity duration-500">
+        <Aurora
+          colorStops={colors}
+          blend={0.5}
+          amplitude={1.0}
+          speed={1}
+        />
+      </div>
 
       <motion.div
         variants={containerVariants}

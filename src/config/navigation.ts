@@ -7,8 +7,21 @@ import {
   Settings,
   History,
 } from "lucide-react";
+import type { UserRole, UserPlan } from "@/types/auth";
 
-export const sidebarGroups = [
+export interface NavItem {
+  title: string;
+  href: string;
+  icon: any;
+  badge?: string;
+  roles?: UserRole[];
+  plans?: UserPlan[];
+}
+
+export const sidebarGroups: {
+  label: string;
+  items: NavItem[];
+}[] = [
   {
     label: "Platform",
     items: [
