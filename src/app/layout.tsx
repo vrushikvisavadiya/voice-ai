@@ -1,5 +1,5 @@
 import type { Metadata } from "next";
-import { Inter, Outfit } from "next/font/google";
+import { Bricolage_Grotesque, Inter, Outfit } from "next/font/google";
 import { ThemeProvider } from "@/components/providers/ThemeProvider";
 import { TooltipProvider } from "@/components/ui/tooltip";
 import "./globals.css";
@@ -9,7 +9,7 @@ const inter = Inter({
   variable: "--font-sans",
 });
 
-const outfit = Outfit({
+const outfit = Bricolage_Grotesque({
   subsets: ["latin"],
   variable: "--font-display",
 });

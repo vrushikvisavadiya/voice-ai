@@ -8,14 +8,6 @@ import { SidebarAccountMenu } from "@/components/layout/SidebarAccountMenu";
 import { useSidebar } from "@/components/layout/SidebarContext";
 import { useSettingsDialog } from "@/components/layout/SettingsDialogContext";
 
-const recents = [
-  "Frontend interview prep",
-  "React Native role practice",
-  "STAR answer improvement",
-  "Full stack mock session",
-  "System design warmup",
-];
-
 export function AppSidebar() {
   const pathname = usePathname();
   const { collapsed } = useSidebar();
@@ -33,7 +25,7 @@ export function AppSidebar() {
         collapsed ? "w-[76px]" : "w-[260px]",
       )}
     >
-      <div className="flex h-14 items-center px-4">
+      <div className="flex py-9 items-center px-4">
         <Link
           href="/dashboard"
           className="text-[15px] font-medium tracking-tight"
@@ -47,7 +39,7 @@ export function AppSidebar() {
           {sidebarGroups.map((group) => (
             <div key={group.label} className="space-y-1">
               {!collapsed && (
-                <p className="px-3 pb-1 text-xs text-muted-foreground">
+                <p className="px-3 pb-1 text-sm text-muted-foreground">
                   {group.label}
                 </p>
               )}
@@ -89,16 +81,49 @@ export function AppSidebar() {
                     key={item.title}
                     href={item.href}
                     title={collapsed ? item.title : undefined}
+                    // className={cn(
+                    //   "flex items-center rounded-xl text-md transition-colors",
+                    //   collapsed
+                    //     ? "justify-center px-2 py-2.5"
+                    //     : "gap-3 px-3 py-2.5 ",
+                    //   isActive(item.href)
+                    //     ? "bg-gradient-to-r from-transparent to-primary/30 text-primary"
+                    //     : "text-gray-700 hover:bg-accent/40 hover:text-foreground",
+                    // )}
+
+                    // className={cn(
+                    //   "group relative flex items-center rounded-xl text-md transition-all duration-200",
+                    //   collapsed
+                    //     ? "justify-center px-2 py-2.5"
+                    //     : "gap-3 px-3 py-2.5",
+                    //   isActive(item.href)
+                    //     ? [
+                    //         "text-primary",
+                    //         "bg-gradient-to-r",
+                    //         "from-primary/5",
+                    //         "via-primary/10",
+                    //         "to-primary/20",
+                    //       ]
+                    //     : [
+                    //         "text-muted-foreground",
+                    //         "hover:bg-accent/60",
+                    //         "hover:text-foreground",
+                    //       ],
+                    // )}
+
                     className={cn(
-                      "flex items-center rounded-xl text-sm transition-colors",
+                      "group relative flex items-center rounded-xl text-md transition-all duration-200 ",
                       collapsed
                         ? "justify-center px-2 py-2.5"
                         : "gap-3 px-3 py-2.5",
                       isActive(item.href)
-                        ? "bg-accent/30 text-foreground"
-                        : "text-muted-foreground hover:bg-accent/40 hover:text-foreground",
+                        ? "bg-gradient-to-r from-primary/5 via-primary/10 to-primary/15 text-primary "
+                        : "text-muted-foreground hover:bg-accent/50 hover:text-foreground ",
                     )}
                   >
+                    {/* {isActive(item.href) && (
+                      <span className="absolute right-0 top-2 bottom-2 w-1 rounded-r-full bg-primary" />
+                    )} */}
                     <Icon className="h-4 w-4 shrink-0" />
                     {!collapsed && (
                       <>
@@ -116,27 +141,6 @@ export function AppSidebar() {
             </div>
           ))}
         </nav>
-
-        {!collapsed && (
-          <>
-            <div className="my-4 border-t border-border/60" />
-
-            <div className="space-y-3 px-1">
-              <p className="px-2 text-xs text-muted-foreground">Recents</p>
-
-              <div className="space-y-1">
-                {recents.map((item) => (
-                  <button
-                    key={item}
-                    className="block w-full truncate rounded-lg px-2 py-2 text-left text-sm text-muted-foreground transition-colors hover:bg-accent/30 hover:text-foreground"
-                  >
-                    {item}
-                  </button>
-                ))}
-              </div>
-            </div>
-          </>
-        )}
       </div>
 
       <div className="border-t border-border/60 p-3">
