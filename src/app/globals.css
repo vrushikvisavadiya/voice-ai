@@ -86,7 +86,7 @@
        Teal:   oklch(0.55 0.14 185)
        Rose:   oklch(0.55 0.18 355)
   ───────────────────────────────────────────────────────────────── */
-  --primary: oklch(0.55 0.2 290);
+  --primary: oklch(0.62 0.21 292);
 
   /* ── BORDER RADIUS ───────────────────────────────────────────────
      Change this to update the rounding of every component.
@@ -99,14 +99,14 @@
   --ring: var(--primary);
 
   /* ── BACKGROUNDS & SURFACES ──────────────────────────────────── */
-  --background: #f7f7ff;
-  --foreground: oklch(0.21 0.015 255);
+  --background: #fafafc;
+  --foreground: oklch(0.2 0.015 260);
 
-  --card: oklch(0.995 0.002 255);
-  --card-foreground: oklch(0.21 0.015 255);
+  --card: #ffffff;
+  --card-foreground: var(--foreground);
 
-  --popover: oklch(0.995 0.002 255);
-  --popover-foreground: oklch(0.21 0.015 255);
+  --popover: #ffffff;
+  --popover-foreground: var(--foreground);
 
   --secondary: oklch(0.968 0.006 255);
   --secondary-foreground: oklch(0.28 0.02 255);

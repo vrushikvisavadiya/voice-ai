@@ -21,7 +21,7 @@ export function AppSidebar() {
   return (
     <aside
       className={cn(
-        "hidden h-screen shrink-0 border-r border-border/60 bg-background/70 backdrop-blur-xl transition-all duration-200 md:flex md:flex-col",
+        "hidden h-screen shrink-0 border-r border-border/60 bg-background backdrop-blur-xl transition-all duration-200 md:flex md:flex-col",
         collapsed ? "w-[76px]" : "w-[260px]",
       )}
     >
@@ -112,7 +112,7 @@ export function AppSidebar() {
                     // )}
 
                     className={cn(
-                      "group relative flex items-center rounded-xl text-md transition-all duration-200 ",
+                      "group relative flex items-center rounded-xl font-display font-medium text-md transition-all duration-200 ",
                       collapsed
                         ? "justify-center px-2 py-2.5"
                         : "gap-3 px-3 py-2.5",
@@ -121,10 +121,7 @@ export function AppSidebar() {
                         : "text-muted-foreground hover:bg-accent/50 hover:text-foreground ",
                     )}
                   >
-                    {/* {isActive(item.href) && (
-                      <span className="absolute right-0 top-2 bottom-2 w-1 rounded-r-full bg-primary" />
-                    )} */}
-                    <Icon className="h-4 w-4 shrink-0" />
+                    <Icon className="h-5 w-5 shrink-0" />
                     {!collapsed && (
                       <>
                         <span>{item.title}</span>
