@@ -1,13 +1,9 @@
-import { AuthSplitLayout } from "@/components/auth/AuthSplitLayout";
-import { LoginForm } from "@/components/auth/LoginForm";
+import { LoginForm } from "./login-form";
 
 export default function LoginPage() {
   return (
-    <AuthSplitLayout
-      title="Welcome back"
-      subtitle="Sign in to continue your interview practice and review your latest sessions."
-    >
+    <div className="flex min-h-[80vh] items-center justify-center p-4">
       <LoginForm />
-    </AuthSplitLayout>
+    </div>
   );
 }

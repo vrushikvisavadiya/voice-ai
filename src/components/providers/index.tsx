@@ -1,5 +1,13 @@
 import { ThemeProvider } from "./ThemeProvider";
 
+import { QueryProvider } from "./QueryProvider";
+
 export function Providers({ children }: { children: React.ReactNode }) {
-  return <ThemeProvider>{children}</ThemeProvider>;
+  return (
+    <>
+      <QueryProvider>
+        <ThemeProvider>{children}</ThemeProvider>
+      </QueryProvider>
+    </>
+  );
 }

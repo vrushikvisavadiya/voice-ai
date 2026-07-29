@@ -1,11 +1,10 @@
 import {
   RiDashboardFill,
+  RiFileTextFill,
   RiMicFill,
-  RiBarChartBoxFill,
   RiHistoryFill,
   RiVipCrown2Fill,
   RiBankCardFill,
-  RiSettings4Fill,
 } from "react-icons/ri";
 
 import type { UserRole, UserPlan } from "@/types/auth";
@@ -29,14 +28,14 @@ export const sidebarGroups = [
         icon: RiDashboardFill,
       },
       {
-        title: "New Interview",
-        href: "/interview/new",
-        icon: RiMicFill,
+        title: "Resume Analysis",
+        href: "/resume-analysis",
+        icon: RiFileTextFill,
       },
       {
-        title: "Reports",
-        href: "/reports",
-        icon: RiBarChartBoxFill,
+        title: "Mock Interview",
+        href: "/job-prep",
+        icon: RiMicFill,
       },
       {
         title: "History",
@@ -58,11 +57,6 @@ export const sidebarGroups = [
         title: "Billing",
         href: "/billing",
         icon: RiBankCardFill,
-      },
-      {
-        title: "Settings",
-        href: "/settings",
-        icon: RiSettings4Fill,
       },
     ],
   },

@@ -1,13 +1,12 @@
-import { AuthSplitLayout } from "@/components/auth/AuthSplitLayout";
-import { OtpVerificationForm } from "@/components/auth/OtpVerificationForm";
+import { Suspense } from "react";
+import { VerifyOtpForm } from "./verify-otp-form";
 
 export default function VerifyOtpPage() {
   return (
-    <AuthSplitLayout
-      title="Verify your code"
-      subtitle="Complete verification to continue with your account setup or password recovery."
-    >
-      <OtpVerificationForm />
-    </AuthSplitLayout>
+    <div className="flex min-h-[80vh] items-center justify-center p-4">
+      <Suspense fallback={<div className="text-center text-sm text-muted-foreground">Loading...</div>}>
+        <VerifyOtpForm />
+      </Suspense>
+    </div>
   );
 }

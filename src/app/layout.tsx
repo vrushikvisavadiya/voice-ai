@@ -1,8 +1,8 @@
 import type { Metadata } from "next";
-import { Bricolage_Grotesque, Inter, Outfit } from "next/font/google";
-import { ThemeProvider } from "@/components/providers/ThemeProvider";
-import { TooltipProvider } from "@/components/ui/tooltip";
+import { Bricolage_Grotesque, Inter } from "next/font/google";
+
 import "./globals.css";
+import { Providers } from "@/components/providers";
 
 const inter = Inter({
   subsets: ["latin"],
@@ -31,9 +31,7 @@ export default function RootLayout({
       className={`${inter.variable} ${outfit.variable}`}
     >
       <body className="min-h-screen bg-background font-sans text-foreground antialiased">
-        <ThemeProvider>
-          <TooltipProvider delayDuration={150}>{children}</TooltipProvider>
-        </ThemeProvider>
+        <Providers> {children}</Providers>
       </body>
     </html>
   );

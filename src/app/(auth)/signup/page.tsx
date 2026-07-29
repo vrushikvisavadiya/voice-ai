@@ -1,13 +1,9 @@
-import { AuthSplitLayout } from "@/components/auth/AuthSplitLayout";
-import { SignupForm } from "@/components/auth/SignupForm";
+import { SignupForm } from "./signup-form";
 
 export default function SignupPage() {
   return (
-    <AuthSplitLayout
-      title="Create your account"
-      subtitle="Start practicing role-specific interviews with AI-generated feedback."
-    >
+    <div className="flex min-h-[80vh] items-center justify-center p-4">
       <SignupForm />
-    </AuthSplitLayout>
+    </div>
   );
 }
