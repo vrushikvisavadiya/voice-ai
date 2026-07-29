@@ -8,6 +8,11 @@ export interface InterviewQuestionResponse {
   user_answer?: string | null;
   feedback?: string | null;
   score?: number | null;
+  confidence?: number | null;
+  accuracy?: number | null;
+  strengths?: string | null;
+  weaknesses?: string | null;
+  suggestions?: string | null;
   created_at: string;
   updated_at: string;
 }
@@ -50,6 +55,11 @@ export interface QuestionEvaluationDetail {
   user_answer?: string | null;
   feedback?: string | null;
   score?: number | null;
+  confidence?: number | null;
+  accuracy?: number | null;
+  strengths?: string | null;
+  weaknesses?: string | null;
+  suggestions?: string | null;
 }
 
 export interface RoundReportResponse {

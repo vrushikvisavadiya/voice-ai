@@ -27,6 +27,7 @@ export interface ResumeAnalysisResponse {
   id: string;
   user_id: string;
   resume_filename: string;
+  resume_filepath?: string | null;
   match_score: number;
   extracted_details: ExtractedResumeDetails;
   created_at: string;
