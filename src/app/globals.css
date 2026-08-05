@@ -58,6 +58,20 @@
   --color-score-amber: var(--score-amber);
   --color-score-red: var(--score-red);
 
+  --color-donezo-dark: var(--donezo-dark);
+  --color-donezo-primary: var(--donezo-primary);
+  --color-donezo-medium: var(--donezo-medium);
+  --color-donezo-light: var(--donezo-light);
+  --color-donezo-subtle: var(--donezo-subtle);
+  --color-donezo-border: var(--donezo-border);
+
+  --color-status-completed-bg: var(--status-completed-bg);
+  --color-status-completed-fg: var(--status-completed-fg);
+  --color-status-in-progress-bg: var(--status-in-progress-bg);
+  --color-status-in-progress-fg: var(--status-in-progress-fg);
+  --color-status-pending-bg: var(--status-pending-bg);
+  --color-status-pending-fg: var(--status-pending-fg);
+
   --font-sans: var(--font-sans);
   --font-display: var(--font-display);
 
@@ -77,16 +91,7 @@
    ================================================================= */
 
 :root {
-  /* ── PRIMARY BRAND COLOR ─────────────────────────────────────────
-     Change this one value to shift the primary color across the app.
-     Current: Indigo/Violet hue (oklch L C H format)
-     Examples:
-       Blue:   oklch(0.55 0.18 260)
-       Purple: oklch(0.55 0.20 290)
-       Teal:   oklch(0.55 0.14 185)
-       Rose:   oklch(0.55 0.18 355)
-  ───────────────────────────────────────────────────────────────── */
-  --primary: oklch(0.62 0.21 292);
+  --primary: #155d42;
 
   /* ── BORDER RADIUS ───────────────────────────────────────────────
      Change this to update the rounding of every component.
@@ -99,7 +104,7 @@
   --ring: var(--primary);
 
   /* ── BACKGROUNDS & SURFACES ──────────────────────────────────── */
-  --background: #fafafc;
+  --background: #e2e5e9;
   --foreground: oklch(0.2 0.015 260);
 
   --card: #ffffff;
@@ -123,11 +128,11 @@
   --input: oklch(0.91 0.007 255);
 
   /* ── SIDEBAR ─────────────────────────────────────────────────── */
-  --sidebar: oklch(0.978 0.004 255);
+  --sidebar: #f4f5f6;
   --sidebar-foreground: oklch(0.21 0.015 255);
   --sidebar-primary: var(--primary);
   --sidebar-primary-foreground: var(--primary-foreground);
-  --sidebar-accent: oklch(0.955 0.01 255);
+  --sidebar-accent: #eaebec;
   --sidebar-accent-foreground: oklch(0.28 0.02 255);
   --sidebar-border: oklch(0.9 0.007 255);
   --sidebar-ring: var(--primary);
@@ -152,16 +157,25 @@
   --chart-2: oklch(0.64 0.18 220);
   --chart-3: oklch(0.7 0.12 150);
   --chart-4: oklch(0.78 0.14 65);
-  --chart-5: oklch(0.68 0.18 350);
+  /* ── DONEZO DASHBOARD COLOR PALETTE ───────────────────────────── */
+  --donezo-dark: #114b36;
+  --donezo-primary: #155d42;
+  --donezo-medium: #228b5e;
+  --donezo-light: #54c28f;
+  --donezo-subtle: #eef7f2;
+  --donezo-border: #d8eae0;
+
+  --status-completed-bg: #e8f5ed;
+  --status-completed-fg: #155d42;
+  --status-in-progress-bg: #fef9e7;
+  --status-in-progress-fg: #b7791f;
+  --status-pending-bg: #fde8e8;
+  --status-pending-fg: #e53e3e;
 }
 
 .dark {
-  /* ── PRIMARY BRAND COLOR (dark) ──────────────────────────────────
-     Lighter version of the primary so it contrasts on dark bg.
-     Adjust together with the :root primary above.
-  ───────────────────────────────────────────────────────────────── */
-  --primary: oklch(0.55 0.2 290);
-  --primary-foreground: oklch(0.18 0.012 264);
+  --primary: #228b5e;
+  --primary-foreground: oklch(0.985 0.003 264);
   --ring: var(--primary);
 
   /* ── BACKGROUNDS & SURFACES ──────────────────────────────────── */
@@ -214,11 +228,20 @@
   --score-red: oklch(0.7 0.15 22);
 
   /* ── CHARTS ──────────────────────────────────────────────────── */
-  --chart-1: oklch(0.7 0.18 264);
-  --chart-2: oklch(0.64 0.16 220);
-  --chart-3: oklch(0.7 0.12 150);
-  --chart-4: oklch(0.78 0.14 65);
-  --chart-5: oklch(0.68 0.18 350);
+  /* ── DONEZO DASHBOARD COLOR PALETTE ───────────────────────────── */
+  --donezo-dark: #0b3425;
+  --donezo-primary: #155d42;
+  --donezo-medium: #1f7d54;
+  --donezo-light: #54c28f;
+  --donezo-subtle: #123326;
+  --donezo-border: #1d4d3a;
+
+  --status-completed-bg: #143d2c;
+  --status-completed-fg: #6ee7b7;
+  --status-in-progress-bg: #3d3214;
+  --status-in-progress-fg: #fcd34d;
+  --status-pending-bg: #421818;
+  --status-pending-fg: #fca5a5;
 }
 
 /* =================================================================
@@ -258,6 +281,40 @@
     -webkit-background-clip: text;
     background-clip: text;
     color: transparent;
+  }
+
+  /* Donezo hatched / striped pattern for chart bars */
+  .bg-donezo-hatched {
+    background-color: var(--donezo-subtle);
+    background-image: repeating-linear-gradient(
+      -45deg,
+      transparent,
+      transparent 6px,
+      var(--donezo-medium) 6px,
+      var(--donezo-medium) 9px
+    );
+    opacity: 0.85;
+  }
+
+  /* Donezo wave pattern background for time tracker */
+  .bg-donezo-wave-card {
+    background: radial-gradient(circle at 80% 20%, #1c7352 0%, #155d42 45%, #0e422e 100%);
+  }
+
+  /* Custom badge utility styles using globals.css tokens */
+  .badge-status-completed {
+    background-color: var(--status-completed-bg);
+    color: var(--status-completed-fg);
+  }
+
+  .badge-status-in-progress {
+    background-color: var(--status-in-progress-bg);
+    color: var(--status-in-progress-fg);
+  }
+
+  .badge-status-pending {
+    background-color: var(--status-pending-bg);
+    color: var(--status-pending-fg);
   }
 }
 
