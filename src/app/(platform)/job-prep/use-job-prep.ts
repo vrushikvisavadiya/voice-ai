@@ -9,9 +9,10 @@ import {
   submitAnswers,
   getRoundReport,
   getPreparationReport,
+  generateNextQuestion,
 } from "./job-prep.service";
 import { toast } from "sonner";
-import type { RoundAnswersPayload } from "./job-prep.types";
+import type { RoundAnswersPayload, GenerateNextQuestionPayload } from "./job-prep.types";
 import { AxiosError } from "axios";
 
 export const useCreateJobPrep = () => {
@@ -96,5 +97,16 @@ export const usePrepReport = (prepId: string) => {
     queryKey: ["prep-report", prepId],
     queryFn: () => getPreparationReport(prepId),
     enabled: Boolean(prepId),
+  });
+};
+
+export const useGenerateNextQuestion = (roundId: string) => {
+  return useMutation({
+    mutationFn: (payload: GenerateNextQuestionPayload) =>
+      generateNextQuestion(roundId, payload),
+    onError: (error: AxiosError<{ detail?: string }>) => {
+      const message = error.response?.data?.detail || "Failed to generate next question";
+      toast.error(message);
+    },
   });
 };

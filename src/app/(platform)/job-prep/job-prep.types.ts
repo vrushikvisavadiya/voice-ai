@@ -91,3 +91,31 @@ export interface JobPreparationReportResponse {
   created_at: string;
   updated_at: string;
 }
+
+// ─── One-at-a-time Question Generation ───────────────────────────────────────
+
+export interface PreviousAnswer {
+  question_text: string;
+  user_answer: string;
+}
+
+export interface GenerateNextQuestionPayload {
+  previous_answers: PreviousAnswer[];
+}
+
+export interface NextQuestionResponse {
+  id: string;
+  question_text: string;
+  expected_answer_guidance?: string | null;
+  question_number: number;
+  total_questions: number;
+  is_last: boolean;
+}
+
+// In-session state for the voice interview page
+export interface SessionAnswer {
+  question_id: string;
+  question_text: string;
+  user_answer: string;
+}
+

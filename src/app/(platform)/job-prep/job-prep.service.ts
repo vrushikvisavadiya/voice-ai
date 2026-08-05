@@ -7,6 +7,8 @@ import type {
   RoundAnswersPayload,
   RoundReportResponse,
   JobPreparationReportResponse,
+  GenerateNextQuestionPayload,
+  NextQuestionResponse,
 } from "./job-prep.types";
 
 export const createPreparation = async (payload: {
@@ -62,3 +64,15 @@ export const getPreparationReport = async (
   );
   return data;
 };
+
+export const generateNextQuestion = async (
+  roundId: string,
+  payload: GenerateNextQuestionPayload
+): Promise<NextQuestionResponse> => {
+  const { data } = await api.post<NextQuestionResponse>(
+    `/job-preparations/rounds/${roundId}/generate-next-question`,
+    payload
+  );
+  return data;
+};
+
