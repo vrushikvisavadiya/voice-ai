@@ -1,6 +1,9 @@
 "use client";
 
-import { Search, Mail, Bell, PanelLeft } from "lucide-react";
+import * as React from "react";
+import { Search, Mail, Bell, PanelLeft, SunMedium, Moon } from "lucide-react";
+import { useTheme } from "next-themes";
+import { AnimatePresence, motion } from "framer-motion";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import type { UserResponse } from "@/types/auth";
 
@@ -9,6 +12,39 @@ interface DashboardHeaderBarProps {
   searchQuery?: string;
   onSearchChange?: (val: string) => void;
   onToggleSidebar?: () => void;
+}
+
+function ThemeToggle() {
+  const { resolvedTheme, setTheme } = useTheme();
+  const [mounted, setMounted] = React.useState(false);
+
+  React.useEffect(() => {
+    setMounted(true);
+  }, []);
+
+  const isDark = mounted && resolvedTheme === "dark";
+
+  return (
+    <button
+      type="button"
+      aria-label={isDark ? "Switch to light mode" : "Switch to dark mode"}
+      className="p-2.5 rounded-full border border-border/70 bg-background/80 text-foreground/80 transition-all duration-300 hover:bg-muted hover:text-foreground"
+      onClick={() => setTheme(isDark ? "light" : "dark")}
+    >
+      <AnimatePresence mode="wait" initial={false}>
+        <motion.span
+          key={isDark ? "sun" : "moon"}
+          initial={{ opacity: 0, rotate: -20, scale: 0.8 }}
+          animate={{ opacity: 1, rotate: 0, scale: 1 }}
+          exit={{ opacity: 0, rotate: 20, scale: 0.8 }}
+          transition={{ duration: 0.18 }}
+          className="inline-flex"
+        >
+          {isDark ? <SunMedium className="h-4 w-4" /> : <Moon className="h-4 w-4" />}
+        </motion.span>
+      </AnimatePresence>
+    </button>
+  );
 }
 
 export function DashboardHeaderBar({
@@ -27,14 +63,14 @@ export function DashboardHeaderBar({
     .toUpperCase();
 
   return (
-    <header className="flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between p-3.5 rounded-2xl bg-white dark:bg-card shadow-2xs border border-border/40 mb-4">
+    <header className="flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between p-3.5 rounded-2xl bg-[#f4f5f6] dark:bg-card/40 border border-border/40 mb-4">
       <div className="flex items-center gap-3 flex-1 min-w-0">
         {onToggleSidebar && (
           <button
             type="button"
             onClick={onToggleSidebar}
             aria-label="Toggle Sidebar"
-            className="p-2 rounded-xl border border-border/70 bg-muted/30 text-foreground/80 hover:bg-muted transition-colors shrink-0"
+            className="p-2 rounded-xl border border-border/70 bg-background/80 text-foreground/80 hover:bg-muted transition-colors shrink-0"
           >
             <PanelLeft className="h-4 w-4" />
           </button>
@@ -50,7 +86,7 @@ export function DashboardHeaderBar({
             value={searchQuery}
             onChange={(e) => onSearchChange?.(e.target.value)}
             placeholder="Search job preparations or target roles..."
-            className="w-full pl-10 pr-12 py-2 text-sm rounded-full border border-border/60 bg-muted/40 focus:outline-none focus:ring-2 focus:ring-primary focus:border-transparent transition-all"
+            className="w-full pl-10 pr-12 py-2 text-sm rounded-full border border-border/60 bg-background/80 focus:outline-none focus:ring-2 focus:ring-primary focus:border-transparent transition-all"
           />
           <div className="absolute inset-y-0 right-0 pr-3 flex items-center pointer-events-none">
             <span className="text-[11px] font-medium text-muted-foreground bg-background px-1.5 py-0.5 rounded border border-border/60">
@@ -65,7 +101,7 @@ export function DashboardHeaderBar({
         <button
           type="button"
           aria-label="Mail"
-          className="p-2.5 rounded-full border border-border/70 bg-muted/30 text-foreground/80 hover:bg-muted transition-colors"
+          className="p-2.5 rounded-full border border-border/70 bg-background/80 text-foreground/80 hover:bg-muted transition-colors"
         >
           <Mail className="h-4 w-4" />
         </button>
@@ -73,11 +109,13 @@ export function DashboardHeaderBar({
         <button
           type="button"
           aria-label="Notifications"
-          className="relative p-2.5 rounded-full border border-border/70 bg-muted/30 text-foreground/80 hover:bg-muted transition-colors"
+          className="relative p-2.5 rounded-full border border-border/70 bg-background/80 text-foreground/80 hover:bg-muted transition-colors"
         >
           <Bell className="h-4 w-4" />
           <span className="absolute top-2 right-2 h-2 w-2 rounded-full bg-primary" />
         </button>
+
+        <ThemeToggle />
 
         {/* User Info Pill */}
         <div className="flex items-center gap-2.5 pl-1">
