@@ -1,19 +1,21 @@
 "use client";
 
-import { Search, Mail, Bell } from "lucide-react";
+import { Search, Mail, Bell, PanelLeft } from "lucide-react";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import type { UserResponse } from "@/types/auth";
 
 interface DashboardHeaderBarProps {
-  user: UserResponse | null | undefined;
-  searchQuery: string;
-  onSearchChange: (val: string) => void;
+  user?: UserResponse | null | undefined;
+  searchQuery?: string;
+  onSearchChange?: (val: string) => void;
+  onToggleSidebar?: () => void;
 }
 
 export function DashboardHeaderBar({
   user,
-  searchQuery,
+  searchQuery = "",
   onSearchChange,
+  onToggleSidebar,
 }: DashboardHeaderBarProps) {
   const fullName = user?.full_name || "Candidate User";
   const email = user?.email || "candidate@voiceai.com";
@@ -25,23 +27,36 @@ export function DashboardHeaderBar({
     .toUpperCase();
 
   return (
-    <header className="flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between p-3.5 rounded-2xl bg-white dark:bg-card shadow-2xs border border-border/40">
-      {/* Search Input */}
-      <div className="relative flex-1 max-w-md">
-        <div className="absolute inset-y-0 left-0 pl-3.5 flex items-center pointer-events-none text-muted-foreground">
-          <Search className="h-4 w-4" />
-        </div>
-        <input
-          type="text"
-          value={searchQuery}
-          onChange={(e) => onSearchChange(e.target.value)}
-          placeholder="Search job preparations or target roles..."
-          className="w-full pl-10 pr-12 py-2 text-sm rounded-full border border-border/60 bg-muted/40 focus:outline-none focus:ring-2 focus:ring-primary focus:border-transparent transition-all"
-        />
-        <div className="absolute inset-y-0 right-0 pr-3 flex items-center pointer-events-none">
-          <span className="text-[11px] font-medium text-muted-foreground bg-background px-1.5 py-0.5 rounded border border-border/60">
-            ⌘F
-          </span>
+    <header className="flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between p-3.5 rounded-2xl bg-white dark:bg-card shadow-2xs border border-border/40 mb-4">
+      <div className="flex items-center gap-3 flex-1 min-w-0">
+        {onToggleSidebar && (
+          <button
+            type="button"
+            onClick={onToggleSidebar}
+            aria-label="Toggle Sidebar"
+            className="p-2 rounded-xl border border-border/70 bg-muted/30 text-foreground/80 hover:bg-muted transition-colors shrink-0"
+          >
+            <PanelLeft className="h-4 w-4" />
+          </button>
+        )}
+
+        {/* Search Input */}
+        <div className="relative flex-1 max-w-md">
+          <div className="absolute inset-y-0 left-0 pl-3.5 flex items-center pointer-events-none text-muted-foreground">
+            <Search className="h-4 w-4" />
+          </div>
+          <input
+            type="text"
+            value={searchQuery}
+            onChange={(e) => onSearchChange?.(e.target.value)}
+            placeholder="Search job preparations or target roles..."
+            className="w-full pl-10 pr-12 py-2 text-sm rounded-full border border-border/60 bg-muted/40 focus:outline-none focus:ring-2 focus:ring-primary focus:border-transparent transition-all"
+          />
+          <div className="absolute inset-y-0 right-0 pr-3 flex items-center pointer-events-none">
+            <span className="text-[11px] font-medium text-muted-foreground bg-background px-1.5 py-0.5 rounded border border-border/60">
+              ⌘F
+            </span>
+          </div>
         </div>
       </div>
 

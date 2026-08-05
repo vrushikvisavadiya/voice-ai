@@ -1,7 +1,6 @@
 "use client";
 
 import { useDashboardData } from "../use-dashboard-data";
-import { DashboardHeaderBar } from "./DashboardHeaderBar";
 import { DashboardTitleRow } from "./DashboardTitleRow";
 import { DashboardStatCards } from "./DashboardStatCards";
 import { ProjectAnalyticsCard } from "./ProjectAnalyticsCard";
@@ -12,9 +11,6 @@ import { ProjectsListCard } from "./ProjectsListCard";
 
 export function DashboardView() {
   const {
-    user,
-    searchQuery,
-    setSearchQuery,
     statCards,
     analyticsBars,
     upcomingRound,
@@ -25,14 +21,7 @@ export function DashboardView() {
   } = useDashboardData();
 
   return (
-    <div className="w-full max-w-7xl mx-auto space-y-6 p-4 sm:p-6 bg-[#f4f5f6] dark:bg-card/40 rounded-2xl border border-border/40 min-h-full">
-      {/* Top Header Bar with Search & Profile */}
-      <DashboardHeaderBar
-        user={user}
-        searchQuery={searchQuery}
-        onSearchChange={setSearchQuery}
-      />
-
+    <div className="w-full space-y-6">
       {/* Main Title Row */}
       <DashboardTitleRow />
 
