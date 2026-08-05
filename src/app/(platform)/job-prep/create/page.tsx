@@ -262,7 +262,7 @@ function CreateJobPrepForm() {
       <div className="grid grid-cols-1 lg:grid-cols-12 gap-6 items-start">
         {/* LEFT COLUMN: Resume Analysis Baseline Overview & Insights (5 cols on lg, 4 on xl) */}
         <div className="lg:col-span-5 xl:col-span-4 space-y-6 lg:sticky lg:top-6">
-          <Card className="border border-border/70 bg-card/60 backdrop-blur-xs shadow-2xs rounded-2xl overflow-hidden">
+          <Card className="border border-border/70 bg-card/60 backdrop-blur-xs shadow-2xs rounded-2xl overflow-hidden py-0 gap-0">
             <CardHeader className="p-5 pb-4 border-b border-border/40 bg-muted/20">
               <div className="flex items-center justify-between">
                 <div className="flex items-center gap-2.5">
@@ -445,7 +445,7 @@ function CreateJobPrepForm() {
 
         {/* RIGHT COLUMN: Tailored Practice Rounds & Details (7 cols on lg, 8 on xl) */}
         <div className="lg:col-span-7 xl:col-span-8 space-y-6">
-          <Card className="border border-border/70 bg-card/60 backdrop-blur-xs shadow-2xs rounded-2xl overflow-hidden">
+          <Card className="border border-border/70 bg-card/60 backdrop-blur-xs shadow-2xs rounded-2xl overflow-hidden py-0 gap-0">
             <CardHeader className="p-5 sm:p-6 pb-4 border-b border-border/40 bg-muted/20">
               <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
                 <div className="flex items-center gap-3">

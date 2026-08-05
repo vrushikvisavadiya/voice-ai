@@ -92,6 +92,7 @@
 
 :root {
   --primary: #155d42;
+  /* --primary: #52B3B4; */
 
   /* ── BORDER RADIUS ───────────────────────────────────────────────
      Change this to update the rounding of every component.

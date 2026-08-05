@@ -33,7 +33,7 @@ export function ResumeHistoryGrid() {
   const filteredHistory = (history || []).filter((item) =>
     searchQuery
       ? item.resume_filename.toLowerCase().includes(searchQuery.toLowerCase()) ||
-        (item.extracted_details?.candidate_name || "").toLowerCase().includes(searchQuery.toLowerCase())
+      (item.extracted_details?.candidate_name || "").toLowerCase().includes(searchQuery.toLowerCase())
       : true
   );
 
@@ -71,11 +71,10 @@ export function ResumeHistoryGrid() {
             <button
               type="button"
               onClick={() => setViewMode("grid")}
-              className={`p-1.5 rounded-lg text-xs font-medium transition-all flex items-center gap-1 ${
-                viewMode === "grid"
-                  ? "bg-background text-foreground shadow-2xs font-semibold"
-                  : "text-muted-foreground hover:text-foreground"
-              }`}
+              className={`p-1.5 rounded-lg text-xs font-medium transition-all flex items-center gap-1 ${viewMode === "grid"
+                ? "bg-background text-foreground shadow-2xs font-semibold"
+                : "text-muted-foreground hover:text-foreground"
+                }`}
               title="Grid View"
             >
               <LayoutGrid className="h-3.5 w-3.5" />
@@ -84,11 +83,10 @@ export function ResumeHistoryGrid() {
             <button
               type="button"
               onClick={() => setViewMode("table")}
-              className={`p-1.5 rounded-lg text-xs font-medium transition-all flex items-center gap-1 ${
-                viewMode === "table"
-                  ? "bg-background text-foreground shadow-2xs font-semibold"
-                  : "text-muted-foreground hover:text-foreground"
-              }`}
+              className={`p-1.5 rounded-lg text-xs font-medium transition-all flex items-center gap-1 ${viewMode === "table"
+                ? "bg-background text-foreground shadow-2xs font-semibold"
+                : "text-muted-foreground hover:text-foreground"
+                }`}
               title="Table View"
             >
               <List className="h-3.5 w-3.5" />
@@ -118,7 +116,7 @@ export function ResumeHistoryGrid() {
               return (
                 <Card
                   key={item.id}
-                  className="rounded-2xl border-border/70 hover:border-primary/50 transition-all shadow-2xs group flex flex-col justify-between"
+                  className="rounded-2xl border-border/70 hover:border-primary/50 transition-all shadow-2xs group flex flex-col justify-between py-0"
                 >
                   <CardHeader className="p-5 pb-3 flex flex-row items-start justify-between gap-3">
                     <div className="flex items-start gap-3 min-w-0">
@@ -192,7 +190,7 @@ export function ResumeHistoryGrid() {
                         <Button
                           asChild
                           size="sm"
-                          className="h-8 rounded-xl gap-1.5 text-xs font-semibold bg-emerald-600 hover:bg-emerald-700 text-white shadow-2xs"
+                          className="h-8 rounded-xl gap-1.5 text-xs font-semibold bg-primary hover:bg-emerald-700 text-white shadow-2xs"
                         >
                           <Link href={`/job-prep/${existingPrep.id}`}>
                             <CheckCircle2 className="h-3.5 w-3.5" />
