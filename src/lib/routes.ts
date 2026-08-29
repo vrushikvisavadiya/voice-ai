@@ -53,4 +53,9 @@ export const ROLE_ROUTE_RULES: Array<{
     prefix: "/settings",
     roles: ["candidate", "coach", "admin"],
   },
+  {
+    prefix: "/profile",
+    roles: ["candidate", "coach", "admin"],
+  },
 ];
+

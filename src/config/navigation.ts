@@ -5,6 +5,7 @@ import {
   RiHistoryFill,
   RiVipCrown2Fill,
   RiBankCardFill,
+  RiUser3Fill,
 } from "react-icons/ri";
 
 import type { UserRole, UserPlan } from "@/types/auth";
@@ -48,6 +49,11 @@ export const sidebarGroups = [
     label: "Workspace",
     items: [
       {
+        title: "Profile",
+        href: "/profile",
+        icon: RiUser3Fill,
+      },
+      {
         title: "Upgrade",
         href: "/upgrade",
         icon: RiVipCrown2Fill,
@@ -61,3 +67,4 @@ export const sidebarGroups = [
     ],
   },
 ];
+

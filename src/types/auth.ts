@@ -33,11 +33,30 @@ export interface UserResponse {
   created_at: string;
 }
 
+export interface UserProfileResponse {
+  id: string;
+  full_name: string;
+  email: string;
+  is_active: boolean;
+  is_verified: boolean;
+  roles: string[];
+  total_resumes_analyzed: number;
+  total_job_preparations: number;
+  total_rounds_completed: number;
+  overall_average_score: number;
+  created_at: string;
+}
+
+export interface UserProfileUpdatePayload {
+  full_name: string;
+}
+
 export interface UserRegisterPayload {
   email: string;
   password: string;
   full_name: string;
 }
+
 
 export type OTPPurpose = "registration" | "password_reset";
 

@@ -1,12 +1,17 @@
 import { Suspense } from "react";
-import { VerifyOtpForm } from "./verify-otp-form";
+import { AuthSplitLayout } from "@/components/auth/AuthSplitLayout";
+import { OtpVerificationForm } from "@/components/auth/OtpVerificationForm";
 
 export default function VerifyOtpPage() {
   return (
-    <div className="flex min-h-[80vh] items-center justify-center p-4">
-      <Suspense fallback={<div className="text-center text-sm text-muted-foreground">Loading...</div>}>
-        <VerifyOtpForm />
+    <AuthSplitLayout
+      title="Verify your email"
+      subtitle="We sent a 6-digit security code to your email address."
+    >
+      <Suspense fallback={<div className="py-8 text-center text-sm text-muted-foreground">Loading...</div>}>
+        <OtpVerificationForm />
       </Suspense>
-    </div>
+    </AuthSplitLayout>
   );
 }
+

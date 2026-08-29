@@ -18,6 +18,7 @@ export const loginUser = async (payload: LoginPayload): Promise<TokenResponse> =
 };
 
 export const fetchMe = async (): Promise<UserResponse> => {
-  const { data } = await api.get<UserResponse>("/auth/me");
+  const { data } = await api.get<UserResponse>("/users/me");
   return data;
 };
+

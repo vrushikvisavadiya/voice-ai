@@ -1,9 +1,14 @@
-import { SignupForm } from "./signup-form";
+import { AuthSplitLayout } from "@/components/auth/AuthSplitLayout";
+import { SignupForm } from "@/components/auth/SignupForm";
 
 export default function SignupPage() {
   return (
-    <div className="flex min-h-[80vh] items-center justify-center p-4">
+    <AuthSplitLayout
+      title="Create an account"
+      subtitle="Start practicing mock interviews tailored to your target job in seconds."
+    >
       <SignupForm />
-    </div>
+    </AuthSplitLayout>
   );
 }
+
