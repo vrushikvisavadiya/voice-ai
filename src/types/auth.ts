@@ -39,6 +39,12 @@ export interface UserProfileResponse {
   email: string;
   is_active: boolean;
   is_verified: boolean;
+  is_onboarded: boolean;
+  target_role?: string | null;
+  experience_level?: string | null;
+  primary_skills?: string[] | null;
+  target_industry?: string | null;
+  bio?: string | null;
   roles: string[];
   total_resumes_analyzed: number;
   total_job_preparations: number;
@@ -48,8 +54,22 @@ export interface UserProfileResponse {
 }
 
 export interface UserProfileUpdatePayload {
-  full_name: string;
+  full_name?: string;
+  target_role?: string;
+  experience_level?: string;
+  primary_skills?: string[];
+  target_industry?: string;
+  bio?: string;
 }
+
+export interface UserOnboardingRequestPayload {
+  target_role: string;
+  experience_level: string;
+  primary_skills: string[];
+  target_industry?: string;
+  bio?: string;
+}
+
 
 export interface UserRegisterPayload {
   email: string;

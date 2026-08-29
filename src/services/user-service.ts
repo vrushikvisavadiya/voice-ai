@@ -1,6 +1,11 @@
 // src/services/user-service.ts
 import { api } from "@/lib/api/axios";
-import type { UserProfileResponse, UserProfileUpdatePayload } from "@/types/auth";
+import type {
+  UserProfileResponse,
+  UserProfileUpdatePayload,
+  UserOnboardingRequestPayload,
+} from "@/types/auth";
+
 
 export const getMyProfile = async (): Promise<UserProfileResponse> => {
   const { data } = await api.get<UserProfileResponse>("/users/me");
@@ -24,4 +29,24 @@ export const changePassword = async (payload: {
   );
   return data;
 };
+
+export const completeOnboarding = async (
+  payload: UserOnboardingRequestPayload
+): Promise<UserProfileResponse> => {
+  const { data } = await api.post<UserProfileResponse>(
+    "/users/onboarding",
+    payload
+  );
+  return data;
+};
+
+export const getOnboardingStatus = async (): Promise<{
+  is_onboarded: boolean;
+  target_role: string | null;
+  experience_level: string | null;
+}> => {
+  const { data } = await api.get("/users/onboarding/status");
+  return data;
+};
+
 

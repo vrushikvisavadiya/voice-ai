@@ -1,9 +1,10 @@
 // src/hooks/useUserProfile.ts
 import { useQuery, useMutation, useQueryClient } from "@tanstack/react-query";
-import { getMyProfile, updateMyProfile, changePassword } from "@/services/user-service";
+import { getMyProfile, updateMyProfile, changePassword, completeOnboarding } from "@/services/user-service";
 import { useAuthStore } from "@/store/auth-store";
 import { toast } from "sonner";
-import type { UserProfileUpdatePayload } from "@/types/auth";
+import type { UserProfileUpdatePayload, UserOnboardingRequestPayload } from "@/types/auth";
+
 import { AxiosError } from "axios";
 
 export const useUserProfile = () => {
@@ -46,6 +47,20 @@ export const useUserProfile = () => {
     },
   });
 
+  const completeOnboardingMutation = useMutation({
+    mutationFn: (payload: UserOnboardingRequestPayload) =>
+      completeOnboarding(payload),
+    onSuccess: (updatedProfile) => {
+      setUser(updatedProfile);
+      queryClient.setQueryData(["user-profile"], updatedProfile);
+      toast.success("Welcome aboard! Profile preferences saved.");
+    },
+    onError: (error: AxiosError<{ detail?: string }>) => {
+      const message = error.response?.data?.detail || "Failed to complete onboarding";
+      toast.error(message);
+    },
+  });
+
   return {
     profile: profileQuery.data ?? useAuthStore.getState().user,
     isLoading: profileQuery.isLoading,
@@ -55,6 +70,9 @@ export const useUserProfile = () => {
     isUpdating: updateMutation.isPending,
     changePasswordAsync: changePasswordMutation.mutateAsync,
     isChangingPassword: changePasswordMutation.isPending,
+    submitOnboardingAsync: completeOnboardingMutation.mutateAsync,
+    isSubmittingOnboarding: completeOnboardingMutation.isPending,
   };
 };
+
 

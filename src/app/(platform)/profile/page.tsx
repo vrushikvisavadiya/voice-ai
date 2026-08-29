@@ -24,6 +24,12 @@ import {
   ExternalLink,
   Clock,
   FolderOpen,
+  Briefcase,
+  Layers,
+  Code2,
+  Building2,
+  Plus,
+  X,
 } from "lucide-react";
 import { useUserProfile } from "@/hooks/useUserProfile";
 import {
@@ -33,6 +39,7 @@ import {
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
+import { Textarea } from "@/components/ui/textarea";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { Switch } from "@/components/ui/switch";
@@ -109,6 +116,7 @@ function UploadedResumesTab() {
     } finally {
       setDownloadingId(null);
     }
+
   };
 
   if (isLoading) {
@@ -244,6 +252,12 @@ export default function ProfilePage() {
 
   // Profile Edit State
   const [fullName, setFullName] = useState("");
+  const [targetRole, setTargetRole] = useState("");
+  const [experienceLevel, setExperienceLevel] = useState("");
+  const [targetIndustry, setTargetIndustry] = useState("");
+  const [primarySkills, setPrimarySkills] = useState<string[]>([]);
+  const [newSkillInput, setNewSkillInput] = useState("");
+  const [bio, setBio] = useState("");
 
   // Password Change State
   const [currentPassword, setCurrentPassword] = useState("");
@@ -253,15 +267,37 @@ export default function ProfilePage() {
   const [showNewPassword, setShowNewPassword] = useState(false);
 
   useEffect(() => {
-    if (userProfile?.full_name) {
-      setFullName(userProfile.full_name);
+    if (userProfile) {
+      if (userProfile.full_name) setFullName(userProfile.full_name);
+      if (userProfile.target_role) setTargetRole(userProfile.target_role);
+      if (userProfile.experience_level) setExperienceLevel(userProfile.experience_level);
+      if (userProfile.target_industry) setTargetIndustry(userProfile.target_industry);
+      if (userProfile.primary_skills) setPrimarySkills(userProfile.primary_skills);
+      if (userProfile.bio) setBio(userProfile.bio);
     }
-  }, [userProfile?.full_name]);
+  }, [userProfile]);
+
+  const handleAddSkill = () => {
+    if (newSkillInput.trim() && !primarySkills.includes(newSkillInput.trim())) {
+      setPrimarySkills((prev) => [...prev, newSkillInput.trim()]);
+      setNewSkillInput("");
+    }
+  };
+
+  const handleRemoveSkill = (skill: string) => {
+    setPrimarySkills((prev) => prev.filter((s) => s !== skill));
+  };
 
   const handleProfileSave = (e: React.FormEvent) => {
     e.preventDefault();
-    if (!fullName.trim() || fullName === userProfile?.full_name) return;
-    updateProfile({ full_name: fullName.trim() });
+    updateProfile({
+      full_name: fullName.trim(),
+      target_role: targetRole.trim() || undefined,
+      experience_level: experienceLevel.trim() || undefined,
+      target_industry: targetIndustry.trim() || undefined,
+      primary_skills: primarySkills,
+      bio: bio.trim() || undefined,
+    });
   };
 
   const handlePasswordChange = async (e: React.FormEvent) => {
@@ -321,7 +357,7 @@ export default function ProfilePage() {
             Candidate Profile
           </h1>
           <p className="text-sm text-muted-foreground">
-            Manage your personal profile details, review performance metrics, access uploaded resumes, and configure password security.
+            Manage your candidate profile, target role preferences, primary skills, and account security.
           </p>
         </div>
       </div>
@@ -357,14 +393,28 @@ export default function ProfilePage() {
                   )}
                 </div>
                 <p className="text-xs text-muted-foreground">{userProfile?.email}</p>
+                {userProfile?.target_role && (
+                  <p className="text-xs font-semibold text-primary flex items-center gap-1.5 pt-0.5">
+                    <Briefcase className="size-3.5" />
+                    Target Role: {userProfile.target_role}
+                  </p>
+                )}
               </div>
             </div>
 
             <div className="flex flex-wrap items-center gap-2 self-stretch sm:self-auto">
-              <Badge variant="secondary" className="gap-1.5 text-xs py-1.5 px-3.5 rounded-xl font-medium">
-                <Shield className="size-3.5 text-primary" />
-                {userProfile?.roles?.join(", ") || "Candidate"}
-              </Badge>
+              {userProfile?.experience_level && (
+                <Badge variant="secondary" className="gap-1.5 text-xs py-1.5 px-3.5 rounded-xl font-medium">
+                  <Layers className="size-3.5 text-primary" />
+                  {userProfile.experience_level} Level
+                </Badge>
+              )}
+              {userProfile?.target_industry && (
+                <Badge variant="outline" className="gap-1.5 text-xs py-1.5 px-3.5 rounded-xl text-muted-foreground border-border/60">
+                  <Building2 className="size-3.5" />
+                  {userProfile.target_industry}
+                </Badge>
+              )}
               <Badge variant="outline" className="gap-1.5 text-xs py-1.5 px-3.5 rounded-xl text-muted-foreground border-border/60">
                 <Calendar className="size-3.5" />
                 Joined {formattedDate}
@@ -476,7 +526,7 @@ export default function ProfilePage() {
             )}
           >
             <User className="size-3.5" />
-            Account & Identity
+            Candidate Identity & Role
           </button>
           <button
             onClick={() => setActiveTab("resumes")}
@@ -516,17 +566,17 @@ export default function ProfilePage() {
           </button>
         </div>
 
-        {/* Tab 1: Account & Identity */}
+        {/* Tab 1: Candidate Identity & Role Preferences */}
         {activeTab === "account" && (
           <Card className="rounded-3xl border border-border/60 bg-card shadow-sm">
             <CardHeader className="border-b border-border/40 pb-4">
-              <CardTitle className="text-base font-semibold">Personal Information</CardTitle>
+              <CardTitle className="text-base font-semibold">Candidate Identity & Role Preferences</CardTitle>
               <CardDescription className="text-xs">
-                Update your full name and display credentials across interview feedback reports.
+                Manage your name, target position, primary skills index, and candidate bio.
               </CardDescription>
             </CardHeader>
             <CardContent className="pt-6">
-              <form onSubmit={handleProfileSave} className="space-y-5 max-w-2xl">
+              <form onSubmit={handleProfileSave} className="space-y-6 max-w-3xl">
                 <div className="grid gap-4 sm:grid-cols-2">
                   <div className="space-y-2">
                     <Label htmlFor="full_name" className="text-xs font-semibold text-foreground">
@@ -560,6 +610,119 @@ export default function ProfilePage() {
                   </div>
                 </div>
 
+                <div className="grid gap-4 sm:grid-cols-3">
+                  <div className="space-y-2">
+                    <Label htmlFor="target_role" className="text-xs font-semibold text-foreground">
+                      Target Role Title
+                    </Label>
+                    <div className="relative">
+                      <Briefcase className="absolute left-3.5 top-1/2 -translate-y-1/2 size-4 text-muted-foreground" />
+                      <Input
+                        id="target_role"
+                        value={targetRole}
+                        onChange={(e) => setTargetRole(e.target.value)}
+                        placeholder="e.g. Senior Full Stack Engineer"
+                        className="h-11 rounded-2xl pl-10 text-sm bg-muted/20 border-border/70 focus-visible:ring-1 focus-visible:ring-primary"
+                      />
+                    </div>
+                  </div>
+
+                  <div className="space-y-2">
+                    <Label htmlFor="experience_level" className="text-xs font-semibold text-foreground">
+                      Experience Level
+                    </Label>
+                    <div className="relative">
+                      <Layers className="absolute left-3.5 top-1/2 -translate-y-1/2 size-4 text-muted-foreground" />
+                      <Input
+                        id="experience_level"
+                        value={experienceLevel}
+                        onChange={(e) => setExperienceLevel(e.target.value)}
+                        placeholder="e.g. Mid, Senior, Lead"
+                        className="h-11 rounded-2xl pl-10 text-sm bg-muted/20 border-border/70 focus-visible:ring-1 focus-visible:ring-primary"
+                      />
+                    </div>
+                  </div>
+
+                  <div className="space-y-2">
+                    <Label htmlFor="target_industry" className="text-xs font-semibold text-foreground">
+                      Target Industry
+                    </Label>
+                    <div className="relative">
+                      <Building2 className="absolute left-3.5 top-1/2 -translate-y-1/2 size-4 text-muted-foreground" />
+                      <Input
+                        id="target_industry"
+                        value={targetIndustry}
+                        onChange={(e) => setTargetIndustry(e.target.value)}
+                        placeholder="e.g. FinTech, SaaS"
+                        className="h-11 rounded-2xl pl-10 text-sm bg-muted/20 border-border/70 focus-visible:ring-1 focus-visible:ring-primary"
+                      />
+                    </div>
+                  </div>
+                </div>
+
+                {/* Primary Skills Tags */}
+                <div className="space-y-2">
+                  <Label className="text-xs font-semibold text-foreground">Primary Skills Index</Label>
+                  <div className="flex items-center gap-2">
+                    <div className="relative flex-1">
+                      <Code2 className="absolute left-3.5 top-1/2 -translate-y-1/2 size-4 text-muted-foreground" />
+                      <Input
+                        value={newSkillInput}
+                        onChange={(e) => setNewSkillInput(e.target.value)}
+                        onKeyDown={(e) => {
+                          if (e.key === "Enter") {
+                            e.preventDefault();
+                            handleAddSkill();
+                          }
+                        }}
+                        placeholder="Add skill (e.g. React, Python, System Design)..."
+                        className="h-11 rounded-2xl pl-10 text-sm bg-muted/20 border-border/70"
+                      />
+                    </div>
+                    <Button
+                      type="button"
+                      variant="outline"
+                      onClick={handleAddSkill}
+                      className="h-11 rounded-2xl px-4 text-xs font-semibold"
+                    >
+                      <Plus className="size-4 mr-1" />
+                      Add Skill
+                    </Button>
+                  </div>
+
+                  {primarySkills.length > 0 && (
+                    <div className="flex flex-wrap gap-1.5 pt-2">
+                      {primarySkills.map((skill) => (
+                        <Badge
+                          key={skill}
+                          variant="secondary"
+                          className="gap-1.5 text-xs py-1 px-3 rounded-xl bg-primary/10 text-primary border border-primary/20"
+                        >
+                          {skill}
+                          <X
+                            className="size-3.5 cursor-pointer hover:text-destructive"
+                            onClick={() => handleRemoveSkill(skill)}
+                          />
+                        </Badge>
+                      ))}
+                    </div>
+                  )}
+                </div>
+
+                {/* Candidate Bio */}
+                <div className="space-y-2">
+                  <Label htmlFor="bio" className="text-xs font-semibold text-foreground">
+                    Candidate Bio / Career Summary
+                  </Label>
+                  <Textarea
+                    id="bio"
+                    value={bio}
+                    onChange={(e) => setBio(e.target.value)}
+                    placeholder="Short summary describing your experience, strengths, or interview goals..."
+                    className="min-h-[100px] rounded-2xl text-xs bg-muted/20 border-border/70 p-3.5"
+                  />
+                </div>
+
                 <div className="rounded-2xl border border-border/50 bg-muted/20 p-4 space-y-2 text-xs">
                   <div className="flex items-center justify-between">
                     <span className="font-semibold text-foreground">Account Identifier</span>
@@ -568,21 +731,25 @@ export default function ProfilePage() {
                     </span>
                   </div>
                   <div className="flex items-center justify-between">
-                    <span className="font-semibold text-foreground">Roles Assigned</span>
-                    <span className="text-muted-foreground capitalize">
-                      {userProfile?.roles?.join(", ") || "candidate"}
-                    </span>
+                    <span className="font-semibold text-foreground">Onboarding Status</span>
+                    <Badge
+                      variant="outline"
+                      className={cn(
+                        "text-[10px] py-0 px-2 font-medium",
+                        userProfile?.is_onboarded
+                          ? "border-emerald-500/30 text-emerald-600 dark:text-emerald-400"
+                          : "border-amber-500/30 text-amber-600"
+                      )}
+                    >
+                      {userProfile?.is_onboarded ? "Onboarded" : "Pending Onboarding"}
+                    </Badge>
                   </div>
                 </div>
 
                 <div className="flex justify-end pt-2">
                   <Button
                     type="submit"
-                    disabled={
-                      isUpdating ||
-                      !fullName.trim() ||
-                      fullName === userProfile?.full_name
-                    }
+                    disabled={isUpdating}
                     className="h-11 rounded-2xl px-6 font-semibold shadow-sm"
                   >
                     {isUpdating ? (
